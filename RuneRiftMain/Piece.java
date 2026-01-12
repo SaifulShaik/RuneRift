@@ -28,22 +28,35 @@ public class Piece extends Actor
     }
     
     private void setImage(PieceType type, boolean isWhite) {
+        int size = 125;
         switch (type) {
             case PieceType.DARK_PRINCE:
                 if (isWhite) setImage("images/WDarkPrince.png");
-                else setImage("images/BDarkPrince.png");
+                else {
+                    setImage("images/BDarkPrince.png");
+                    size = 250;
+                }
                 break;
             case PieceType.KNIGHT:
                 if (isWhite) setImage("images/WKnight.png");
-                //else setImage("images/BKnight.png");
+                else {
+                    setImage("images/BKnight.png");
+                    size = 70;
+                }
                 break;
             case PieceType.MUSKETEER:
                 if (isWhite) setImage("images/WMusketeer.png");
-                else setImage("images/BMusketeer.png");
+                else {
+                    setImage("images/BMusketeer.png");
+                    size = 100;
+                }
                 break;
             case PieceType.ROYAL_GIANT:
                 if (isWhite) setImage("images/WRoyalGiant.png");
-                else setImage("images/BRoyalGiant.png");
+                else {
+                    setImage("images/BRoyalGiant.png");
+                    size = 90;
+                }
                 break;
             case PieceType.SKELETON:
                 if (isWhite) setImage("images/WSkeleton.png");
@@ -55,10 +68,13 @@ public class Piece extends Actor
                 break;
             case PieceType.ROYAL_RECRUITS:
                 if (isWhite) setImage("images/WRoyalRecruits.png");
-                else setImage("images/BRoyalRecruits.png");
+                else {
+                    setImage("images/BRoyalRecruits.png");
+                    size = 90;
+                }
                 break;
         }
-        getImage().scale(125, 125);
+        getImage().scale(size, size);
     }
     
     public void act()
