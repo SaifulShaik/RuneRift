@@ -35,9 +35,9 @@ public class GridWorld extends World
         Piece wKnight = new Piece(Piece.PieceType.DARK_PRINCE, blockGrid[0][0], true);
         addObject(wKnight, blockGrid[7][0].getX(), blockGrid[7][0].getY());
         elixirBarWhite = new ElixirBar();
-        addObject(elixirBarWhite, 400, 30);
+        addObject(elixirBarWhite, 300, 30);
         elixirBarBlack = new ElixirBar();
-        addObject(elixirBarBlack, 400, 570);
+        addObject(elixirBarBlack, 300, 570);
     }
     
     private void layoutGrid() {
