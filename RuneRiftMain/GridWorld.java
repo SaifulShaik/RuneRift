@@ -12,6 +12,7 @@ public class GridWorld extends World
     public static final int CELLS_WIDE = 8;
     public static final int CELLS_TALL = 8;
     private int gridWidth, gridHeight;
+    
     private ElixirBar elixirBarWhite;
     private ElixirBar elixirBarBlack;
 

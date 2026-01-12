@@ -2,7 +2,6 @@ import greenfoot.*;
 import java.util.LinkedList;
 import java.util.Queue;
 
-
 public class TurnManager
 {
     private Queue<String> turnQueue;

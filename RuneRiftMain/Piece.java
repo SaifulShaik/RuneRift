@@ -21,6 +21,7 @@ public class Piece extends Actor
         
         setImage(type, isWhite);
         move(currentBlock);
+        showHitbox();
     }
     
     private void move(Block target) {
@@ -77,10 +78,15 @@ public class Piece extends Actor
         getImage().scale(size, size);
     }
     
+    private void showHitbox() {
+        GreenfootImage img = getImage();
+        img.setColor(Color.GREEN);
+        img.drawRect(0, 0, img.getWidth()-1, img.getHeight()-1);
+        setImage(img);
+    }
+    
     public void act()
     {
         // Add your action code here.
     }
-    
-    
 }
