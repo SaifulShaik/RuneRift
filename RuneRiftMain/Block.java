@@ -3,11 +3,15 @@ import greenfoot.*;
 public class Block extends Actor
 {
     private int xPos, yPos;
+    private int worldX, worldY;
 
-    public Block(int x, int y)
+    public Block(int x, int y, int worldX, int worldY)
     {
         xPos = x;
         yPos = y;
+        this.worldX = worldX;
+        this.worldY = worldY;
+        
         drawCell();
     }
 
@@ -37,5 +41,21 @@ public class Block extends Actor
         image.drawString(xPos + ", " + yPos, 4, image.getHeight() - 6);
 
         setImage(image);
+    }
+    
+    public int getBoardX() {
+        return xPos;
+    }
+    
+    public int getBoardY() {
+        return yPos;
+    }
+    
+    public int getX() {
+        return worldX;
+    }
+    
+    public int getY() {
+        return worldY;
     }
 }

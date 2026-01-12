@@ -30,20 +30,21 @@ public class GridWorld extends World
         blockGrid = new Block[CELLS_TALL][CELLS_WIDE];
         layoutGrid();
         
+        Piece wKnight = new Piece(Piece.PieceType.DARK_PRINCE, blockGrid[0][0], true);
+        addObject(wKnight, blockGrid[7][0].getX(), blockGrid[7][0].getY());
     }
-    
     
     private void layoutGrid() {
         for (int i = 0; i < blockGrid.length; i++){
             for (int j = 0; j < blockGrid[i].length; j++){
-                blockGrid[i][j] = new Block (j, i);
-                addObject(blockGrid[i][j], 
-                          (getWidth() - gridWidth)/2 + j * SIZE + (SIZE / 2),
-                          (getHeight() - gridHeight)/2 + i * SIZE + (SIZE / 2));
+                int worldX = (getWidth() - gridWidth)/2 + j * SIZE + (SIZE / 2);
+                int worldY = (getHeight() - gridHeight)/2 + i * SIZE + (SIZE / 2);
+                
+                blockGrid[i][j] = new Block (i, j, worldX, worldY);
+                addObject(blockGrid[i][j], worldX, worldY);
             }
         }
     }
-    
 }
 
 
