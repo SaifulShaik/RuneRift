@@ -63,7 +63,6 @@ public class Piece extends Actor
                 return false; 
             }
         }
-
         
         int x = currentBlock.getBoardX();
         int y = currentBlock.getBoardY();
@@ -78,14 +77,18 @@ public class Piece extends Actor
         
         switch (type) {
             case PieceType.ROYAL_RECRUITS:
-                if (dy != 0) return false;
-                
                 int startRow = isWhite ? 6 : 1;
                 boolean isFirstMove = (x == startRow);
-                
-                if (dx == direction) return true;
-                if (isFirstMove && dx == 2 * direction) return true;
-                return false;
+    
+                if (pieceOnTarget == null) {
+                    if (dy != 0) return false; 
+                    if (dx == direction) return true; 
+                    if (isFirstMove && dx == 2 * direction) return true; 
+                    return false;
+                } else {
+                    if (dx == direction && Math.abs(dy) == 1) return true;
+                    return false;
+                }
             case PieceType.DARK_PRINCE:
                 return dy == 0 || dx == 0;
             case PieceType.WITCH:
