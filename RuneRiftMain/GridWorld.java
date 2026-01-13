@@ -15,7 +15,10 @@ public class GridWorld extends World
     
     private ElixirBar elixirBarWhite;
     private ElixirBar elixirBarBlack;
-     private TurnManager turnManager;
+    private TurnManager turnManager;
+    private GameTimer whiteTimer;
+    private GameTimer blackTimer;
+    private EndTurnButton endTurnButton;
 
     private Block[][] blockGrid;
     
@@ -34,11 +37,23 @@ public class GridWorld extends World
         blockGrid = new Block[CELLS_TALL][CELLS_WIDE];
         layoutGrid();
         
+        endTurnButton = new EndTurnButton();
+        addObject(endTurnButton, 300, 300);
         // add elixir bars
         elixirBarWhite = new ElixirBar();
-        addObject(elixirBarWhite, 300, 30);
+        addObject(elixirBarWhite, 180, 30);
         elixirBarBlack = new ElixirBar();
-        addObject(elixirBarBlack, 300, 570);
+        addObject(elixirBarBlack, 180, 570);
+        
+        // Create separate timers 
+        whiteTimer = new GameTimer("WHITE", 300);
+        addObject(whiteTimer, 420, 570);
+        
+        blackTimer = new GameTimer("BLACK", 300);
+        addObject(blackTimer, 420, 30); 
+        
+        whiteTimer.setActive(true);
+        blackTimer.setActive(false);
         
         turnManager = new TurnManager(elixirBarWhite, elixirBarBlack);
         
@@ -108,10 +123,15 @@ public class GridWorld extends World
         return turnManager;
     }
     
-    public void endTurn()
-    {
-        turnManager.nextTurn(); // Automatically adds elixir to next player
+    public void endTurn(){
+        turnManager.nextTurn();
+        
+        // Switch which timer is active based on current player
+        String currentPlayer = turnManager.getCurrentPlayer();
+        whiteTimer.setActive(currentPlayer.equals("WHITE"));
+        blackTimer.setActive(currentPlayer.equals("BLACK"));
     }
+
     
     private void layoutGrid() {
         for (int i = 0; i < blockGrid.length; i++){
