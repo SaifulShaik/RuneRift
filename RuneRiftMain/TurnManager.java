@@ -47,7 +47,7 @@ public class TurnManager
         turnQueue.add(player); // Add to back
         currentPlayer = turnQueue.peek(); // Get new current player
         
-        // Add elixir to the NEW current player when their turn starts
+        
         if (currentPlayer.equals("WHITE") && whiteElixirBar != null)
         {
             if (!whiteElixirBar.isFull())

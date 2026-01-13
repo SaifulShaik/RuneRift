@@ -161,12 +161,12 @@ public class LandingPage extends World
         bg.fill();
         
         // Load and scale the image smaller
-        GreenfootImage img = new GreenfootImage("Clash_Chess.png");
-        img.scale(300, 300);
+        GreenfootImage img = new GreenfootImage("Background.png");
+        
         
         // Center the image on the background
-        int x = (getWidth() - 300) / 2;
-        int y = (getHeight() - 300) / 2;
+        int x = 0;
+        int y = 0;
         bg.drawImage(img, x, y);
         
         setBackground(bg);
