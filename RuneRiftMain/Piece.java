@@ -43,9 +43,19 @@ public class Piece extends Actor
         setLocation(target.getX(), target.getY());
         currentBlock = target;
         clearHighlights();
+        target.setPiece(this);
     }
     
     private boolean checkIfMoveIsValid(Block targetBlock) {
+        Piece pieceOnTarget = targetBlock.currentPiece();
+        
+        if (pieceOnTarget != null) {
+            if (pieceOnTarget.checkIsWhite() == this.isWhite) {
+                return false; 
+            }
+        }
+
+        
         int x = currentBlock.getBoardX();
         int y = currentBlock.getBoardY();
         
@@ -180,6 +190,10 @@ public class Piece extends Actor
         hitboxImg.setColor(color);
         hitboxImg.drawRect(0, 0, img.getWidth()-1, img.getHeight()-1);
         setImage(hitboxImg);
+    }
+    
+    public boolean checkIsWhite() {
+        return isWhite;
     }
     
     public void act()

@@ -4,6 +4,7 @@ public class Block extends Actor
 {
     private int xPos, yPos;
     private int worldX, worldY;
+    private Piece piece;
     
     GreenfootImage originalImage;
 
@@ -44,6 +45,18 @@ public class Block extends Actor
         highlightImg.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 100)); // semi-transparent
         highlightImg.fillRect(0, 0, getImage().getWidth(), getImage().getHeight());
         setImage(highlightImg);
+    }
+    
+    public Piece currentPiece() {
+        return piece;
+    }
+    
+    public void setPiece(Piece p) {
+        piece = p;
+    }
+    
+    public void removePiece() {
+        piece = null;
     }
     
     public void clearHighlight() {
