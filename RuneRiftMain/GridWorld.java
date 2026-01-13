@@ -11,7 +11,8 @@ public class GridWorld extends World
     public static final int SIZE = 60;
     public static final int CELLS_WIDE = 8;
     public static final int CELLS_TALL = 8;
-    private int gridWidth, gridHeight;
+    public static final int gridWidth = 480;
+    public static final int gridHeight = 480;
     
     private ElixirBar elixirBarWhite;
     private ElixirBar elixirBarBlack;
@@ -27,9 +28,6 @@ public class GridWorld extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 600, 1); 
-        
-        gridWidth = SIZE * CELLS_WIDE;
-        gridHeight = SIZE * CELLS_TALL;
         
         blockGrid = new Block[CELLS_TALL][CELLS_WIDE];
         layoutGrid();
@@ -123,6 +121,25 @@ public class GridWorld extends World
                 addObject(blockGrid[i][j], worldX, worldY);
             }
         }
+    }
+    
+    public Block worldToBlockPos(int worldX, int worldY) {
+        int startX = (getWidth() - gridWidth) / 2;
+        int startY = (getHeight() - gridHeight) / 2;
+    
+        int col = (worldX - startX) / SIZE;
+        int row = (worldY - startY) / SIZE;
+    
+        if (row < 0 || row >= CELLS_TALL || col < 0 || col >= CELLS_WIDE)
+        {
+            return null;
+        }
+    
+        return blockGrid[row][col];
+    }
+    
+    public Block getCellAt(int x, int y) {
+        return blockGrid[x][y];
     }
 }
 

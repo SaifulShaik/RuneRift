@@ -27,11 +27,11 @@ public class Block extends Actor
         // Chessboard colour logic
         if ((xPos + yPos) % 2 == 0)
         {
-            image.setColor(Color.BLACK);
+            image.setColor(Color.WHITE);
         }
         else
         {
-            image.setColor(Color.WHITE);
+            image.setColor(Color.BLACK);
         }
 
         image.fill();
@@ -42,7 +42,7 @@ public class Block extends Actor
 
         setImage(image);
     }
-    
+
     public int getBoardX() {
         return xPos;
     }
