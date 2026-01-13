@@ -161,8 +161,8 @@ public class LandingPage extends World
         bg.fill();
         
         // Load and scale the image smaller
-        GreenfootImage img = new GreenfootImage("Background.jpg");
-        img.scale(600, 600);
+        GreenfootImage img = new GreenfootImage("Background.png");
+        
         
         // Center the image on the background
         int x = 0;
