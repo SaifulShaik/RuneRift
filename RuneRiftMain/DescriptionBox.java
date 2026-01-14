@@ -55,12 +55,12 @@ class DescriptionBox extends Actor
         
         // Background
         img.setColor(new Color(240, 240, 240));
-        img.fillRect(0, 0, 400, 500);
+        img.fillRect(0, 0, 400, 400);
         
         // Border
         img.setColor(Color.BLACK);
-        img.drawRect(0, 0, 399, 499);
-        img.drawRect(1, 1, 397, 497);
+        img.drawRect(0, 0, 399, 399);
+        img.drawRect(1, 1, 397, 397);
         
         // Title bar
         img.setColor(new Color(60, 60, 120));
@@ -123,7 +123,7 @@ class DescriptionBox extends Actor
                        "• Moves diagonaly \n" +
                        "Special Ability (3 Elixir):\n" +
                        "• Sneaky Snipe: Shoots a bullet down a\n" +
-                       "  column, eliminating the first target hit" +
+                       "  column, eliminating the first target hit\n" +
                        "• Needs line of sight\n\n" +
                        "Tips:\n" +
                        "Keep a open lane to threaten the opponents\n" +
@@ -153,8 +153,8 @@ class DescriptionBox extends Actor
                        "  all pieces on the tile you choose as\n" +
                        "  well as the 8 adjacent tiles\n" +
                        "Tips:\n" +
-                       "Launch your cannon at clumped enemies," +
-                       "your opponent only has 2 turns to avoid"+ 
+                       "Launch your cannon at clumped enemies,\n" +
+                       "your opponent only has 2 turns to avoid\n"+ 
                        "your attack!!";
                        
             case "ROYAL_RECRUITS":
@@ -166,7 +166,7 @@ class DescriptionBox extends Actor
                        "• Break the Limits: Gain the ability\n" +
                        "  to take the piece in front\n" +
                        "Tips:\n" +
-                       "Use your pawns to limit your opponents squares"+
+                       "Use your pawns to limit your opponents squares\n"+
                        "by pushing them back!";
                        
             default:
