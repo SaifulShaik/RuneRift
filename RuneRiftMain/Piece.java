@@ -41,7 +41,7 @@ public class Piece extends Actor
         
         setImage(type, isWhite);
         moveTo(currentBlock);
-        showHitbox(Color.RED);
+        updateHitbox();
     }
     
     private boolean isMyTurn()
@@ -225,7 +225,7 @@ public class Piece extends Actor
             } else {
                 world.setSelectedPiece(this);
                 isSelected = true;
-                showHitbox(Color.GREEN);
+                updateHitbox();
                 showPossibleMoves();
             }
         }
@@ -242,7 +242,7 @@ public class Piece extends Actor
         ((GridWorld) getWorld()).endTurn();
         isSelected = false;
         
-        showHitbox(Color.RED);
+        updateHitbox();
         clearHighlights();
     }
     
@@ -278,7 +278,7 @@ public class Piece extends Actor
     
     public void deselect() {
         isSelected = false;
-        showHitbox(Color.RED);
+        updateHitbox();
         clearHighlights();
     }
     
@@ -317,7 +317,11 @@ public class Piece extends Actor
         getImage().scale(size, size);
     }
     
-    private void showHitbox(Color color) {
+    private void updateHitbox() {
+        Color color = isSelected ? Color.GREEN : Color.RED;
+        if (isSelected && abilityState == 1 && type == PieceType.DARK_PRINCE) {
+            color = Color.ORANGE;
+        }
         GreenfootImage img = getImage();
         GreenfootImage hitboxImg = new GreenfootImage(img); // copy to avoid scaling issues
         hitboxImg.setColor(color);
@@ -357,7 +361,8 @@ public class Piece extends Actor
                 break;
         }
         
-        // refresh the possible moves
+        // refresh the possible moves and update hitbox
+        updateHitbox();
         clearHighlights();
         showPossibleMoves();
     }
