@@ -31,11 +31,11 @@ public class Piece extends Actor
         this.isWhite = isWhite;
         
         switch(type) {
-            case DARK_PRINCE: abilityCost = 3; break;
-            case KNIGHT: abilityCost = 5; break;
+            case DARK_PRINCE: abilityCost = 5; break;
+            case KNIGHT: abilityCost = 3; break;
             case MUSKETEER: abilityCost = 2; break;
-            case ROYAL_GIANT: abilityCost = 5; break;
-            case WITCH: abilityCost = 5; break;
+            case ROYAL_GIANT: abilityCost = 7; break;
+            case WITCH: abilityCost = 4; break;
             case ROYAL_RECRUITS: abilityCost = 1; break;
         }
         
