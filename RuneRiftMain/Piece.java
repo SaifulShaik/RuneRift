@@ -96,7 +96,8 @@ public class Piece extends Actor
                         return false;
                     }
                     return false;
-                } else {
+                } 
+                else {
                     if (dx == direction && Math.abs(dy) == 1) return true;
                     if (dx == direction && dy == 0 && abilityUsed) return true;
                     return false;
@@ -123,7 +124,30 @@ public class Piece extends Actor
                 return (Math.abs(dx) == 2 && Math.abs(dy) == 1) || (Math.abs(dx) == 1 && Math.abs(dy) == 2);
     
             case PieceType.MUSKETEER:
-                if (Math.abs(dx) != Math.abs(dy)) return false;
+                if (abilityUsed) {
+                    // must move straight forward (no longer diagonal)
+                    if (dy != 0) return false;
+                    
+                    // must move forwards
+                    if (isWhite && dx >= 0) return false;
+                    if (!isWhite && dx <= 0) return false;
+                    
+                    GridWorld world = (GridWorld) getWorld();
+                    
+                    int step = isWhite ? -1 : 1;
+                    
+                    int cx = x + step;
+            
+                    while (cx != targetX) {
+                        Block b = world.getBlock(cx, y);
+                        if (b.currentPiece() != null) {
+                            return false; 
+                        }
+                        cx += step;
+                    }
+                    return pieceOnTarget != null;
+                }
+                else if (Math.abs(dx) != Math.abs(dy)) return false;
                 return isPathClear(x, y, targetX, targetY);
         }
     
@@ -133,6 +157,7 @@ public class Piece extends Actor
     private boolean isPathClear(int startX, int startY, int endX, int endY) {
         GridWorld world = (GridWorld) getWorld();
         
+        // calculates direction
         int dx = Integer.compare(endX, startX); 
         int dy = Integer.compare(endY, startY); 
     
@@ -207,7 +232,6 @@ public class Piece extends Actor
         }
     }
 
-    
     private void clearHighlights() {
         for (Block block : highlightedBlocks) {
             block.clearHighlight(); 
@@ -277,17 +301,19 @@ public class Piece extends Actor
         int x = currentBlock.getBoardX();
         int y = currentBlock.getBoardY();
         
+        int direction = isWhite ? -1 : 1;
+        
         switch (type) {
             case KNIGHT:
-                Block block1 = gw.getBlock(x-1, y-1);
+                Block block1 = gw.getBlock(x+direction, y-1);
                 if (block1 != null) {
                     block1.removePiece(true);
                 }
-                Block block2 = gw.getBlock(x-1, y);
+                Block block2 = gw.getBlock(x+direction, y);
                 if (block2 != null) {
                     block2.removePiece(true);
                 }
-                Block block3 = gw.getBlock(x-1, y+1);
+                Block block3 = gw.getBlock(x+direction, y+1);
                 if (block3 != null) {
                     block3.removePiece(true);
                 }
@@ -309,7 +335,7 @@ public class Piece extends Actor
     {
         GridWorld gw = (GridWorld) getWorld();
         
-        if (isSelected && 
+        if (isSelected && !abilityUsed && 
             gw.isButtonClicked(isWhite) && 
             gw.getElixir(isWhite) >= abilityCost) 
                 useAbility();

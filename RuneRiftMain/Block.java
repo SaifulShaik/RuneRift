@@ -56,7 +56,6 @@ public class Block extends Actor
     }
     
     public void removePiece(boolean removeFromWorld) {
-        System.out.println(piece == null);
         if (piece == null) return;
         
         Piece p = piece;

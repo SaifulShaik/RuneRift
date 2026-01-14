@@ -43,27 +43,27 @@ public class GridWorld extends World
         
         // add elixir bars
         elixirBarWhite = new ElixirBar();
-        addObject(elixirBarWhite, 120, 570);
+        addObject(elixirBarWhite, 120, 575);
         elixirBarWhite.addElixir(1);
         
         elixirBarBlack = new ElixirBar();
-        addObject(elixirBarBlack, 120, 30);
+        addObject(elixirBarBlack, 120, 25);
         
         // Create separate timers 
         whiteTimer = new GameTimer("WHITE", 300);
-        addObject(whiteTimer, 330, 570);
+        addObject(whiteTimer, 330, 575);
         
         blackTimer = new GameTimer("BLACK", 300);
-        addObject(blackTimer, 330, 30); 
+        addObject(blackTimer, 330, 25); 
         
         whiteTimer.setActive(true);
         blackTimer.setActive(false);
         
         blackAbilityButton = new Button("Use ability", 120, 40);
-        addObject(blackAbilityButton, 500, 30);
+        addObject(blackAbilityButton, 500, 25);
         
         whiteAbilityButton = new Button("Use ability", 120, 40);
-        addObject(whiteAbilityButton, 500, 570);
+        addObject(whiteAbilityButton, 500, 575);
         
         turnManager = new TurnManager(elixirBarWhite, elixirBarBlack);
         
@@ -155,6 +155,8 @@ public class GridWorld extends World
     }
     
     public Block worldToBlockPos(int worldX, int worldY) {
+        if (worldX > 540 || worldX < 60 || worldY > 540 || worldY < 60) return null;
+        
         int startX = (getWidth() - gridWidth) / 2;
         int startY = (getHeight() - gridHeight) / 2;
     
