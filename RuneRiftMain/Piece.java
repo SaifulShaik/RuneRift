@@ -203,14 +203,17 @@ public class Piece extends Actor
             //System.out.println(checkIfMoveIsValid(selectedBlock));
             if (checkIfMoveIsValid(selectedBlock)) {
                 moveTo(selectedBlock);
-                
-                ((GridWorld) getWorld()).endTurn();
-                isSelected = false;
-                
-                showHitbox(Color.RED);
-                clearHighlights();
+                endTurn();
             }
         }
+    }
+    
+    private void endTurn() {
+        ((GridWorld) getWorld()).endTurn();
+        isSelected = false;
+        
+        showHitbox(Color.RED);
+        clearHighlights();
     }
     
     private void showPossibleMoves() {
@@ -317,6 +320,7 @@ public class Piece extends Actor
                 if (block3 != null) {
                     block3.removePiece(true);
                 }
+                endTurn();
                 break;
         }
     }
