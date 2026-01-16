@@ -146,19 +146,19 @@ public class LandingPage extends World
                                 Color.WHITE, 28);
         addObject(playButton, 300, 320);
         
-        // Create editor button
-        creditsButton = new Button("CREDITS", 220, 65,
-                                   new Color(70, 130, 180),
-                                   new Color(100, 149, 237),
-                                   Color.WHITE, 28);
-        addObject(creditsButton, 300, 410);
-        
         infoButton = new Button("INFO", 220, 65,
                                    new Color(70, 130, 180),
                                    new Color(100, 149, 237),
                                    Color.WHITE, 28);
                                    
-        addObject(infoButton, 300, 500);                 
+        addObject(infoButton, 300, 410);
+        
+        // Create editor button
+        creditsButton = new Button("CREDITS", 220, 65,
+                                   new Color(70, 130, 180),
+                                   new Color(100, 149, 237),
+                                   Color.WHITE, 28);
+        addObject(creditsButton, 300, 500);                 
     }
 
     /**

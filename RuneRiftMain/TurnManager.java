@@ -57,15 +57,11 @@ public class TurnManager
     
     /**
      * End current turn and move to next player.
-     * Awards elixir based on the multiplier setting.
+     * Awards elixir to the player who just finished their turn.
      */
     public void nextTurn()
     {
-        String player = turnQueue.poll(); // Remove from front
-        turnQueue.add(player); // Add to back
-        currentPlayer = turnQueue.peek(); // Get new current player
-        
-        // Award elixir to the new current player based on multiplier
+        // Award elixir to the player who just finished their turn (before switching)
         if (currentPlayer.equals("WHITE") && whiteElixirBar != null)
         {
             if (!whiteElixirBar.isFull())
@@ -80,5 +76,10 @@ public class TurnManager
                 blackElixirBar.addElixir(elixirMultiplier);
             }
         }
+        
+        // Now switch to the next player
+        String player = turnQueue.poll(); // Remove from front
+        turnQueue.add(player); // Add to back
+        currentPlayer = turnQueue.peek(); // Get new current player
     }
 }

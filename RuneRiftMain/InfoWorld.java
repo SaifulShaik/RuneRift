@@ -3,6 +3,7 @@ import greenfoot.*;
 public class InfoWorld extends World
 {
     private DescriptionBox descriptionBox;
+    private Button backButton;
     
     public InfoWorld()
     {
@@ -15,9 +16,10 @@ public class InfoWorld extends World
         getBackground().setFont(new Font("Arial", true, false, 30));
         getBackground().drawString("Piece Guide", 330, 85);
         
-        // Back button instruction
-        getBackground().setFont(new Font("Arial", false, false, 16));
-        getBackground().drawString("Press 'B' to go back to game", 320, 530);
+        // Back button
+        backButton = new Button("← Back", 100, 40,
+            new Color(70, 70, 90), new Color(100, 100, 130), Color.WHITE, 18);
+        addObject(backButton, 70, 30);
         
         setupPieceImages();
         
@@ -29,10 +31,10 @@ public class InfoWorld extends World
     
     public void act()
     {
-        // Press 'B' to go back to GridWorld
-        if (Greenfoot.isKeyDown("b"))
+        // Click back button to return to LandingPage
+        if (Greenfoot.mouseClicked(backButton))
         {
-            Greenfoot.setWorld(new GridWorld());
+            Greenfoot.setWorld(new LandingPage());
         }
     }
     
