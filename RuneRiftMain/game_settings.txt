@@ -1,0 +1,3 @@
+elixirMultiplier=1
+timeMinutes=10
+isWhiteSide=true

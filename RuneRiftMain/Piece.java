@@ -22,7 +22,11 @@ public class Piece extends Actor
     private boolean abilityUsed;
     private int abilityState;
     private int abilityCost;
-    
+
+    private Block pendingExplosionBlock;
+    private boolean explosionQueued;
+    private Bomb currentBomb;
+
     private List<Block> highlightedBlocks = new ArrayList<>();
     
     public Piece(PieceType type, Block block, boolean isWhite) {
@@ -34,7 +38,7 @@ public class Piece extends Actor
             case DARK_PRINCE: abilityCost = 5; break;
             case KNIGHT: abilityCost = 3; break;
             case MUSKETEER: abilityCost = 2; break;
-            case ROYAL_GIANT: abilityCost = 7; break;
+            case ROYAL_GIANT: abilityCost = 8; break;
             case WITCH: abilityCost = 6; break;
             case ROYAL_RECRUITS: abilityCost = 1; break;
         }
@@ -58,9 +62,7 @@ public class Piece extends Actor
         if (currentBlock != null) currentBlock.setPiece(null);
 
         setLocation(target.getX(), target.getY());
-        
         currentBlock = target;
-        
         target.setPiece(this);
         
         if (abilityState == 1 && type == PieceType.DARK_PRINCE) {
@@ -140,7 +142,7 @@ public class Piece extends Actor
         int direction = isWhite ? -1 : 1;
     
         switch (type) {
-            case PieceType.ROYAL_RECRUITS:
+            case ROYAL_RECRUITS:
                 int startRow = isWhite ? 6 : 1;
                 boolean isFirstMove = (x == startRow);
     
@@ -161,27 +163,28 @@ public class Piece extends Actor
                     return false;
                 }
     
-            case PieceType.DARK_PRINCE:
+            case DARK_PRINCE:
                 if (dx != 0 && dy != 0) return false; // must be straight line
                 return isPathClear(x, y, targetX, targetY);
     
-            case PieceType.WITCH:
+            case WITCH:
                 if (dx != 0 && dy != 0 && Math.abs(dx) != Math.abs(dy)) return false; // diagonal or straight
                 return isPathClear(x, y, targetX, targetY);
     
-            case PieceType.SKELETON:
+            case SKELETON:
                 if (dy != 0) return false;
                 if (dx != direction) return false;
-                return true; // 1-square forward
+                return true;
     
-            case PieceType.ROYAL_GIANT:
+            case ROYAL_GIANT:
+                if (abilityState == 1) return false; 
                 if (Math.abs(dx) > 1 || Math.abs(dy) > 1) return false;
                 return true;
     
-            case PieceType.KNIGHT:
+            case KNIGHT:
                 return (Math.abs(dx) == 2 && Math.abs(dy) == 1) || (Math.abs(dx) == 1 && Math.abs(dy) == 2);
     
-            case PieceType.MUSKETEER:
+            case MUSKETEER:
                 if (Math.abs(dx) != Math.abs(dy)) return false;
                 return isPathClear(x, y, targetX, targetY);
         }
@@ -192,7 +195,6 @@ public class Piece extends Actor
     private boolean isPathClear(int startX, int startY, int endX, int endY) {
         GridWorld world = (GridWorld) getWorld();
         
-        // calculates direction
         int dx = Integer.compare(endX, startX); 
         int dy = Integer.compare(endY, startY); 
     
@@ -230,10 +232,44 @@ public class Piece extends Actor
             cx += step;
         }
     }
+
+    private void explodeRoyalGiant() {
+        if (pendingExplosionBlock == null) return;
+
+        GridWorld gw = (GridWorld) getWorld();
+
+        int cx = pendingExplosionBlock.getBoardX();
+        int cy = pendingExplosionBlock.getBoardY();
+
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                Block b = gw.getBlock(cx + dx, cy + dy);
+                if (b != null && b.currentPiece() != null) {
+                    if (b.currentPiece().checkIsWhite() != this.isWhite) {
+                        b.removePiece(true);
+                    }
+                }
+            }
+        }
+
+        pendingExplosionBlock = null;
+        clearHighlights();
+        
+        gw.removeObject(currentBomb);
+        currentBomb = null;
+    }
     
     private void move() {        
         if (!Greenfoot.mouseClicked(null)) return;
         if (!isMyTurn()) return;
+        
+        if (type == PieceType.ROYAL_GIANT && abilityState == 1) {
+            if (!Greenfoot.mouseClicked(null)) return;
+        }
+        
+        if (type == PieceType.ROYAL_GIANT && explosionQueued) {
+            return; 
+        }
         
         MouseInfo mouse = Greenfoot.getMouseInfo();
         if (mouse == null) return;
@@ -257,27 +293,53 @@ public class Piece extends Actor
             }
         }
         else if (isSelected) {
-            //System.out.println(checkIfMoveIsValid(selectedBlock));
-            if (checkIfMoveIsValid(selectedBlock)) {
+            if (type == PieceType.ROYAL_GIANT && abilityState == 1) {
+                queueRoyalGiantExplosion(selectedBlock);
+                endTurn();
+                return;
+            }
+            else if (checkIfMoveIsValid(selectedBlock)) {
                 moveTo(selectedBlock);
                 endTurn();
             }
         }
     }
+
+    private void queueRoyalGiantExplosion(Block target) {
+        pendingExplosionBlock = target;
+        explosionQueued = true;
+        abilityState = 0;
+        
+        Bomb bomb = new Bomb();
+        currentBomb = bomb;
+        GridWorld gw = (GridWorld) getWorld();
+        gw.addObject(bomb, target.getX(), target.getY());
+        
+        clearHighlights();
+    }
     
     private void endTurn() {
         ((GridWorld) getWorld()).endTurn();
-        deselect();
+        if (!(type == PieceType.ROYAL_GIANT && explosionQueued)) {
+            deselect();
+        }
     }
     
     private void showPossibleMoves() {
         GridWorld world = (GridWorld) getWorld();
+        
         clearHighlights(); 
         
         for (int x = 0; x < GridWorld.CELLS_TALL; x++) {
             for (int y = 0; y < GridWorld.CELLS_WIDE; y++) {
                 Block block = world.getBlock(x, y);
-                if (block != null && checkIfMoveIsValid(block)) {
+                if (block == null ) continue;
+
+                if (type == PieceType.ROYAL_GIANT && abilityState == 1) {
+                    block.highlight(Color.ORANGE);
+                    highlightedBlocks.add(block);
+                }
+                else if (checkIfMoveIsValid(block)) {
                     Piece pieceOnTarget = block.currentPiece();
                     if (pieceOnTarget != null && pieceOnTarget.checkIsWhite() != this.isWhite) {
                         if (abilityState == 1 && type == PieceType.DARK_PRINCE) {
@@ -309,31 +371,31 @@ public class Piece extends Actor
     private void setImage(PieceType type, boolean isWhite) {
         int size = 60;
         switch (type) {
-            case PieceType.DARK_PRINCE:
+            case DARK_PRINCE:
                 if (isWhite) setImage("images/WDarkPrince.png");
                 else setImage("images/BDarkPrince.png");
                 break;
-            case PieceType.KNIGHT:
+            case KNIGHT:
                 if (isWhite) setImage("images/WKnight.png");
                 else setImage("images/BKnight.png");
                 break;
-            case PieceType.MUSKETEER:
+            case MUSKETEER:
                 if (isWhite) setImage("images/WMusketeer.png");
                 else setImage("images/BMusketeer.png");
                 break;
-            case PieceType.ROYAL_GIANT:
+            case ROYAL_GIANT:
                 if (isWhite) setImage("images/WRoyalGiant.png");
                 else setImage("images/BRoyalGiant.png");
                 break;
-            case PieceType.SKELETON:
+            case SKELETON:
                 if (isWhite) setImage("images/WSkeleton.png");
                 else setImage("images/BSkeleton.png");
                 break;
-            case PieceType.WITCH:
+            case WITCH:
                 if (isWhite) setImage("images/WWitch.png");
                 else setImage("images/BWitch.png");
                 break;
-            case PieceType.ROYAL_RECRUITS:
+            case ROYAL_RECRUITS:
                 if (isWhite) setImage("images/WRoyalRecruits.png");
                 else setImage("images/BRoyalRecruits.png");
                 break;
@@ -352,7 +414,7 @@ public class Piece extends Actor
         hitboxImg.drawRect(0, 0, img.getWidth()-1, img.getHeight()-1);
         setImage(hitboxImg);
     }
-    
+
     public void useAbility() {
         abilityUsed = true;
         
@@ -399,6 +461,9 @@ public class Piece extends Actor
                 snipe();
                 endTurn = true;
                 break;
+            case ROYAL_GIANT:
+                abilityState = 1;
+                break;
         }
         
         // refresh the possible moves and update hitbox
@@ -425,6 +490,11 @@ public class Piece extends Actor
     public void act()
     {
         GridWorld gw = (GridWorld) getWorld();
+
+        if (explosionQueued && isMyTurn()) {
+            explodeRoyalGiant();
+            explosionQueued = false;
+        }
         
         if (isSelected && (!abilityUsed || abilityState == 0) && 
             gw.isButtonClicked(isWhite) && 
