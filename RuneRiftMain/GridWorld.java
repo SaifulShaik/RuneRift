@@ -22,18 +22,25 @@ public class GridWorld extends World
     private EndTurnButton endTurnButton;
     private Button blackAbilityButton;
     private Button whiteAbilityButton;
+    
+    // Game settings loaded from configuration
+    private int elixirMultiplier;
+    private int timeLimitSeconds;
 
     private Block[][] blockGrid;
     private Piece selectedPiece;
     
     /**
      * Constructor for objects of class MyWorld.
-     * 
+     * Loads settings from GameSettings configuration.
      */
     public GridWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 600, 1); 
+        
+        // Load game settings from configuration
+        loadGameSettings();
         
         blockGrid = new Block[CELLS_TALL][CELLS_WIDE];
         layoutGrid();
@@ -41,19 +48,19 @@ public class GridWorld extends World
         //endTurnButton = new EndTurnButton();
         //addObject(endTurnButton, 300, 300);
         
-        // add elixir bars
+        // add elixir bars (start with 0 elixir - gain is per turn)
         elixirBarWhite = new ElixirBar();
         addObject(elixirBarWhite, 120, 575);
-        elixirBarWhite.addElixir(1);
+        elixirBarWhite.addElixir(elixirMultiplier); // Give first turn elixir
         
         elixirBarBlack = new ElixirBar();
         addObject(elixirBarBlack, 120, 25);
         
-        // Create separate timers 
-        whiteTimer = new GameTimer("WHITE", 300);
+        // Create separate timers with loaded time limit
+        whiteTimer = new GameTimer("WHITE", timeLimitSeconds);
         addObject(whiteTimer, 330, 575);
         
-        blackTimer = new GameTimer("BLACK", 300);
+        blackTimer = new GameTimer("BLACK", timeLimitSeconds);
         addObject(blackTimer, 330, 25); 
         
         whiteTimer.setActive(true);
@@ -65,7 +72,8 @@ public class GridWorld extends World
         whiteAbilityButton = new Button("Use ability", 120, 40);
         addObject(whiteAbilityButton, 500, 575);
         
-        turnManager = new TurnManager(elixirBarWhite, elixirBarBlack);
+        // Create TurnManager with elixir multiplier
+        turnManager = new TurnManager(elixirBarWhite, elixirBarBlack, elixirMultiplier);
         
         // white pieces
         Piece wDarkPrince1 = new Piece(Piece.PieceType.DARK_PRINCE, blockGrid[7][0], true);
@@ -198,6 +206,36 @@ public class GridWorld extends World
             selectedPiece.deselect();
         }
         selectedPiece = piece;
+    }
+    
+    /**
+     * Load game settings from configuration file.
+     * Falls back to defaults if settings are missing.
+     */
+    private void loadGameSettings()
+    {
+        GameSettings settings = GameSettings.getInstance();
+        elixirMultiplier = settings.getElixirMultiplier();
+        timeLimitSeconds = settings.getTimeSeconds();
+        
+        // Log loaded settings for debugging
+        System.out.println("Game starting with settings: " + settings);
+    }
+    
+    /**
+     * Get the current elixir multiplier setting
+     */
+    public int getElixirMultiplier()
+    {
+        return elixirMultiplier;
+    }
+    
+    /**
+     * Get the time limit in seconds
+     */
+    public int getTimeLimitSeconds()
+    {
+        return timeLimitSeconds;
     }
 }
 

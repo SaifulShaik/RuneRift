@@ -197,4 +197,14 @@ public class Button extends Actor
     {
         return text;
     }
+    
+    /**
+     * Update the button's colors (useful for selection highlighting)
+     */
+    public void updateColors(Color newNormalColor, Color newHoverColor)
+    {
+        this.normalColor = newNormalColor;
+        this.hoverColor = newHoverColor;
+        updateImage();
+    }
 }
