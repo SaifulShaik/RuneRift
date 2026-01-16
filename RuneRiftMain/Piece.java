@@ -267,10 +267,7 @@ public class Piece extends Actor
     
     private void endTurn() {
         ((GridWorld) getWorld()).endTurn();
-        isSelected = false;
-        
-        updateHitbox();
-        clearHighlights();
+        deselect();
     }
     
     private void showPossibleMoves() {
@@ -305,8 +302,8 @@ public class Piece extends Actor
     
     public void deselect() {
         isSelected = false;
-        updateHitbox();
         clearHighlights();
+        updateHitbox();
     }
     
     private void setImage(PieceType type, boolean isWhite) {
@@ -367,39 +364,52 @@ public class Piece extends Actor
         
         int direction = isWhite ? -1 : 1;
         
+        boolean endTurn = false;
+        
         switch (type) {
             case KNIGHT:
                 Block block1 = gw.getBlock(x+direction, y-1);
-                if (block1 != null) {
-                    block1.removePiece(true);
+                if (block1 != null && block1.currentPiece() != null ) {
+                    if (block1.currentPiece().checkIsWhite() != this.isWhite) {
+                        block1.removePiece(true);
+                    }
                 }
                 Block block2 = gw.getBlock(x+direction, y);
-                if (block2 != null) {
-                    block2.removePiece(true);
+                if (block2 != null && block2.currentPiece() != null ) {
+                    if (block2.currentPiece().checkIsWhite() != this.isWhite) {
+                        block2.removePiece(true);
+                    }
                 }
                 Block block3 = gw.getBlock(x+direction, y+1);
-                if (block3 != null) {
-                    block3.removePiece(true);
+                if (block3 != null && block3.currentPiece() != null ) {
+                    if (block3.currentPiece().checkIsWhite() != this.isWhite) {
+                        block3.removePiece(true);
+                    }
                 }
-                endTurn();
+                endTurn = true;
                 break;
             case DARK_PRINCE:
                 abilityState = 1;
                 break;
             case WITCH:
                 spawnSkeletons();
-                endTurn();
+                endTurn = true;
                 break;
             case MUSKETEER:
                 snipe();
-                endTurn();
+                endTurn = true;
                 break;
         }
         
         // refresh the possible moves and update hitbox
-        updateHitbox();
-        clearHighlights();
-        showPossibleMoves();
+        if (!endTurn) {
+            updateHitbox();
+            clearHighlights();
+            showPossibleMoves();
+        } 
+        else {
+            endTurn();
+        }
     }
     
     public void clearBlock() {
