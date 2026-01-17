@@ -50,10 +50,9 @@ public class GridWorld extends World
         //endTurnButton = new EndTurnButton();
         //addObject(endTurnButton, 300, 300);
         
-        // add elixir bars (start with 0 elixir - gain is per turn)
+        // add elixir bars (start with 0 elixir - gain is at end of turn)
         elixirBarWhite = new ElixirBar();
         addObject(elixirBarWhite, 120, 575);
-        elixirBarWhite.addElixir(elixirMultiplier); // Give first turn elixir
         
         elixirBarBlack = new ElixirBar();
         addObject(elixirBarBlack, 120, 25);
