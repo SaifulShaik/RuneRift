@@ -1,1 +1,1 @@
-# RuneRift
+# Clashmate
