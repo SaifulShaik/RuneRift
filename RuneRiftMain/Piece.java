@@ -321,6 +321,7 @@ public class Piece extends Actor
     
     private void endTurn() {
         ((GridWorld) getWorld()).endTurn();
+        abilityUsed = false;
         if (!(type == PieceType.ROYAL_GIANT && explosionQueue > 0)) {
             deselect();
         }
