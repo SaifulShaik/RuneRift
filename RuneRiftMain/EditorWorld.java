@@ -3,11 +3,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Editor World for configuring game settings before starting.
  * Allows adjustment of Time, Elixir, and Side selection.
+ * Extends MenuWorld for common menu functionality.
  * 
  * @author Saiful Shaik
  * @version 1.0
  */
-public class EditorWorld extends World
+public class EditorWorld extends MenuWorld
 {
     // Game settings
     private int timeMinutes = 10;       // Default 10 minutes (range 1-30)
@@ -42,7 +43,7 @@ public class EditorWorld extends World
      */
     public EditorWorld()
     {    
-        super(600, 600, 1); 
+        super(); // Uses MenuWorld's standard dimensions
         loadSavedSettings();
         createBackground();
         setupUI();
@@ -294,7 +295,7 @@ public class EditorWorld extends World
         }
         else if (backButton.wasClicked())
         {
-            Greenfoot.setWorld(new LandingPage());
+            goToLandingPage();
         }
         else if (startButton.wasClicked())
         {

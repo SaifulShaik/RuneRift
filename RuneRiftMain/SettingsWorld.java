@@ -4,11 +4,12 @@ import greenfoot.*;
  * Settings world for adjusting game audio settings.
  * Features animated sliders for Master, Music, and SFX volume.
  * Settings are automatically saved and persist across sessions.
+ * Extends MenuWorld for common menu functionality.
  * 
  * @author Saiful Shaik
  * @version
  */
-public class SettingsWorld extends World
+public class SettingsWorld extends MenuWorld
 {
     // UI Components
     private Button backButton;
@@ -33,7 +34,7 @@ public class SettingsWorld extends World
     
     public SettingsWorld()
     {
-        super(600, 600, 1);
+        super(); // Uses MenuWorld's standard dimensions
         
         // Initialize animation variables
         fadeInAlpha = 0;
@@ -78,7 +79,7 @@ public class SettingsWorld extends World
         
         if (exitAlpha >= 255)
         {
-            Greenfoot.setWorld(new LandingPage());
+            goToLandingPage();
             return;
         }
         

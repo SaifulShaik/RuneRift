@@ -3,11 +3,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Landing page for RuneRift game.
  * Features animated title and navigation buttons.
+ * Extends MenuWorld for common menu functionality.
  * 
  * @author Saiful Shaik
  * @version
  */
-public class LandingPage extends World
+public class LandingPage extends MenuWorld
 {
     // Labels and Buttons
     private Button playButton;
@@ -24,30 +25,23 @@ public class LandingPage extends World
     private int frameCount;
     private boolean titleAnimationComplete;
     private boolean buttonsVisible;
-    private boolean musicStarted;
     
     public LandingPage()
     {    
-        // Create a new world with 600x600 cells with a cell size of 1x1 pixels.
-        super(600, 600, 1); 
+        super(); // Uses MenuWorld's 600x600 setup
         titleOpacity = 0;
         titleY = 250;
         targetTitleY = 150;
         frameCount = 0;
         titleAnimationComplete = false;
         buttonsVisible = false;
-        musicStarted = false;
         prepare();
     }
     
     public void act()
     {
         // Start music on first act (when Greenfoot Run is pressed)
-        if (!musicStarted)
-        {
-            SoundManager.getInstance().playMenuMusic();
-            musicStarted = true;
-        }
+        startMusicIfNeeded();
         
         frameCount++;
         animateTitle();
@@ -200,21 +194,5 @@ public class LandingPage extends World
         bg.drawImage(img, x, y);
         
         setBackground(bg);
-    }
-    
-    /**
-     * Called when Greenfoot is paused/stopped
-     */
-    public void stopped()
-    {
-        SoundManager.getInstance().stopMenuMusic();
-    }
-    
-    /**
-     * Called when Greenfoot is started/resumed
-     */
-    public void started()
-    {
-        SoundManager.getInstance().playMenuMusic();
     }
 }

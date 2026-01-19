@@ -79,7 +79,7 @@ public class GridWorld extends World
         whiteCostDisplay = new AbilityCostDisplay();
         addObject(whiteCostDisplay, 580, 575);
         
-        turnManager = new TurnManager(elixirBarWhite, elixirBarBlack);
+        turnManager = new TurnManager(elixirBarWhite, elixirBarBlack, elixirMultiplier);
         
         // white pieces
         Piece wDarkPrince1 = new Piece(Piece.PieceType.DARK_PRINCE, blockGrid[7][0], true);

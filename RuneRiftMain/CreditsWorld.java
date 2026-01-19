@@ -4,11 +4,12 @@ import java.util.ArrayList;
 /**
  * Credits world showing game credits and acknowledgments.
  * Supports scrolling to view all content within a clipped viewport.
+ * Extends MenuWorld for common menu functionality.
  * 
  * @author Saiful Shaik
  * @version 
  */
-public class CreditsWorld extends World
+public class CreditsWorld extends MenuWorld
 {
     private Button backButton;
     private int fadeAlpha;
@@ -40,7 +41,7 @@ public class CreditsWorld extends World
     
     public CreditsWorld()
     {
-        super(600, 600, 1);
+        super(); // Uses MenuWorld's standard dimensions
         fadeAlpha = 0;
         scrollY = 0;
         minScrollY = -200; // How far down you can scroll
@@ -78,7 +79,7 @@ public class CreditsWorld extends World
         exitAlpha += 15;
         if (exitAlpha >= 255)
         {
-            Greenfoot.setWorld(new LandingPage());
+            goToLandingPage();
             return;
         }
         

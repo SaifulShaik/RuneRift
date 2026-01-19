@@ -1,32 +1,61 @@
 import greenfoot.*;
 
-public class InfoWorld extends World
+/**
+ * Info world showing piece guide and descriptions.
+ * Extends MenuWorld for common menu functionality.
+ * 
+ * @author Saiful Shaik
+ * @version 1.0
+ */
+public class InfoWorld extends MenuWorld
 {
     private DescriptionBox descriptionBox;
     private Button backButton;
     
     public InfoWorld()
     {
-        super(800, 600, 1);
-        
-        setBackground("Background.png");
+        super(800, 600); // Custom width for piece display
         
         // Title
         getBackground().setColor(Color.WHITE);
         getBackground().setFont(new Font("Arial", true, false, 30));
         getBackground().drawString("Piece Guide", 330, 85);
         
-        // Back button
-        backButton = new Button("← Back", 100, 40,
-            new Color(70, 70, 90), new Color(100, 100, 130), Color.WHITE, 18);
+        // Back button using inherited helper
+        backButton = createBackButton();
         addObject(backButton, 70, 30);
         
         setupPieceImages();
         
         // Create description box (initially hidden)
         descriptionBox = new DescriptionBox();
-        addObject(descriptionBox, getWidth() / 2+ 10, getHeight() / 2 + 30);
+        addObject(descriptionBox, getWidth() / 2 + 10, getHeight() / 2 + 30);
         descriptionBox.hide();
+    }
+    
+    /**
+     * Override to handle wider background for InfoWorld
+     */
+    @Override
+    protected void setupBackground()
+    {
+        GreenfootImage bg = new GreenfootImage(getWidth(), getHeight());
+        bg.setColor(new Color(20, 30, 60));
+        bg.fill();
+        
+        try
+        {
+            GreenfootImage img = new GreenfootImage("Background.png");
+            // Scale to fit width while maintaining aspect ratio, or tile/center
+            img.scale(getWidth(), getHeight());
+            bg.drawImage(img, 0, 0);
+        }
+        catch (Exception e)
+        {
+            // Background image not found, use solid color
+        }
+        
+        setBackground(bg);
     }
     
     public void act()
@@ -34,7 +63,7 @@ public class InfoWorld extends World
         // Click back button to return to LandingPage
         if (backButton.wasClicked())
         {
-            Greenfoot.setWorld(new LandingPage());
+            goToLandingPage();
         }
     }
     
