@@ -16,6 +16,7 @@ public class Piece extends Actor
     private boolean isWhite;
     private Block currentBlock;
     private boolean isSelected;
+    private boolean hasMoved;
     
     private boolean canMove;
     
@@ -29,6 +30,8 @@ public class Piece extends Actor
         this.type = type;
         this.currentBlock = block;
         this.isWhite = isWhite;
+        
+        hasMoved = false;
         
         switch(type) {
             case DARK_PRINCE: abilityCost = 5; break;
@@ -53,6 +56,8 @@ public class Piece extends Actor
     }
     
     private void moveTo(Block target) {
+        hasMoved = true;
+        
         target.removePiece(true);
         
         if (currentBlock != null) currentBlock.setPiece(null);
@@ -186,8 +191,26 @@ public class Piece extends Actor
     
             case ROYAL_GIANT:
                 if (abilityState == 1) return false; 
-                if (Math.abs(dx) > 1 || Math.abs(dy) > 1) return false;
-                return true;
+            
+                if (!hasMoved && dx == 0 && Math.abs(dy) == 2) {
+                    int rookY = (dy > 0) ? 7 : 0; 
+                    
+                    GridWorld gw = (GridWorld) getWorld();
+                    Block rookBlock = gw.getBlock(x, rookY);
+                    
+                    if (rookBlock != null) {
+                        Piece potentialRook = rookBlock.currentPiece();
+            
+                        if (potentialRook != null && 
+                            potentialRook.getType() == PieceType.DARK_PRINCE && 
+                            !potentialRook.checkHasMoved() && 
+                            isPathClear(x, y, x, rookY)) {
+                            return true;
+                        }
+                    }
+                }
+                if (Math.abs(dx) <= 1 && Math.abs(dy) <= 1) return true;
+                return false;
     
             case KNIGHT:
                 return (Math.abs(dx) == 2 && Math.abs(dy) == 1) || (Math.abs(dx) == 1 && Math.abs(dy) == 2);
@@ -198,6 +221,14 @@ public class Piece extends Actor
         }
     
         return false;
+    }
+    
+    public PieceType getType() {
+        return type;
+    }
+    
+    public boolean checkHasMoved() {
+        return hasMoved;
     }
     
     private boolean isPathClear(int startX, int startY, int endX, int endY) {
@@ -273,7 +304,11 @@ public class Piece extends Actor
             }
         }
         else if (isSelected) {
-            if (type == PieceType.ROYAL_GIANT && abilityState == 1) {
+            if (type == PieceType.ROYAL_GIANT && Math.abs(selectedBlock.getBoardY() - currentBlock.getBoardY()) == 2) {
+                executeCastling(selectedBlock);
+                endTurn();
+            }
+            else if (type == PieceType.ROYAL_GIANT && abilityState == 1) {
                 queueRoyalGiantExplosion(selectedBlock);
                 endTurn();
                 return;
@@ -282,6 +317,30 @@ public class Piece extends Actor
                 moveTo(selectedBlock);
                 endTurn();
             }
+        }
+    }
+    
+    private void executeCastling(Block targetBlock) {
+        GridWorld gw = (GridWorld) getWorld();
+        int row = currentBlock.getBoardX();
+        int kingOrigY = currentBlock.getBoardY();
+        int kingTargY = targetBlock.getBoardY();
+        
+        int rookOrigY = (kingTargY > kingOrigY) ? 7 : 0;
+        int rookTargY = (kingTargY > kingOrigY) ? kingTargY - 1 : kingTargY + 1;
+
+        moveTo(targetBlock);
+    
+        Block rookOrigBlock = gw.getBlock(row, rookOrigY);
+        Block rookTargBlock = gw.getBlock(row, rookTargY);
+        Piece rook = rookOrigBlock.currentPiece();
+        
+        if (rook != null) {
+            rook.currentBlock.setPiece(null); 
+            rook.setLocation(rookTargBlock.getX(), rookTargBlock.getY());
+            rook.currentBlock = rookTargBlock;
+            rookTargBlock.setPiece(rook);
+            rook.hasMoved = true;
         }
     }
 
@@ -296,6 +355,7 @@ public class Piece extends Actor
     private void endTurn() {
         ((GridWorld) getWorld()).endTurn();
         abilityUsed = false;
+        isSelected = false;
     }
     
     private void showPossibleMoves() {
