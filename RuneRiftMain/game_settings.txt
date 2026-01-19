@@ -1,4 +1,4 @@
-elixirMultiplier=1
+elixirMultiplier=3
 timeMinutes=5
 isWhiteSide=true
 masterVolume=68

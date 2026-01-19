@@ -239,8 +239,10 @@ public class Piece extends Actor
         while (cx < gw.CELLS_TALL) {
             Block b = gw.getBlock(cx, y);
             if (b.currentPiece() != null) {
-                b.removePiece(true);
-                break;
+                if (b.currentPiece().checkIsWhite() != isWhite) {
+                    b.removePiece(true);
+                    break;
+                }
             }
             cx += step;
         }
