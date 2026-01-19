@@ -61,7 +61,19 @@ public class Piece extends Actor
         target.removePiece(true);
         
         if (currentBlock != null) currentBlock.setPiece(null);
-
+        
+        // Use target coordinates instead of getX()/getY()
+        if (type == PieceType.ROYAL_RECRUITS && abilityState == 1 && getWorld() != null) {
+            SpearStrikeEffect spear = new SpearStrikeEffect(target.getX(), target.getY(), isWhite);
+            getWorld().addObject(spear, target.getX(), target.getY());
+            abilityState = 0;
+        }
+        
+        if (type == PieceType.DARK_PRINCE && abilityState == 1 && getWorld ()!= null) {
+            // We spawn it at the TARGET location because that is where we land
+            getWorld().addObject(new ChargeEffect(target.getX(), target.getY()), target.getX(), target.getY());
+        }
+        
         setLocation(target.getX(), target.getY());
         currentBlock = target;
         target.setPiece(this);
@@ -427,54 +439,76 @@ public class Piece extends Actor
         
         int direction = isWhite ? -1 : 1;
         
-        boolean endTurn = false;
-        
         switch (type) {
             case KNIGHT:
+                KnightSlashEffect slash = new KnightSlashEffect(getX(), getY());
+                gw.addObject(slash, getX(), getY());
+                
                 Block block1 = gw.getBlock(x+direction, y-1);
-                if (block1 != null && block1.currentPiece() != null ) {
-                    if (block1.currentPiece().checkIsWhite() != this.isWhite) {
-                        block1.removePiece(true);
-                    }
+                if (block1 != null) {
+                    block1.removePiece(true);
                 }
                 Block block2 = gw.getBlock(x+direction, y);
-                if (block2 != null && block2.currentPiece() != null ) {
-                    if (block2.currentPiece().checkIsWhite() != this.isWhite) {
-                        block2.removePiece(true);
-                    }
+                if (block2 != null) {
+                    block2.removePiece(true);
                 }
                 Block block3 = gw.getBlock(x+direction, y+1);
-                if (block3 != null && block3.currentPiece() != null ) {
-                    if (block3.currentPiece().checkIsWhite() != this.isWhite) {
-                        block3.removePiece(true);
-                    }
+                if (block3 != null) {
+                    block3.removePiece(true);
                 }
-                endTurn = true;
+                endTurn();
                 break;
+                
             case DARK_PRINCE:
                 abilityState = 1;
+                updateHitbox();
+                clearHighlights();
+                showPossibleMoves();
                 break;
+                
             case WITCH:
+                SummonEffect summon = new SummonEffect(getX(), getY());
+                gw.addObject(summon, getX(), getY());
+                
                 spawnSkeletons();
-                endTurn = true;
+                endTurn();
                 break;
+                
             case MUSKETEER:
+                int cx = x + (isWhite ? -1 : 1);
+                Block targetBlock = null;
+                while (cx >= 0 && cx < gw.CELLS_TALL) {
+                    Block b = gw.getBlock(cx, y);
+                    if (b.currentPiece() != null) {
+                        targetBlock = b;
+                        break;
+                    }
+                    cx += (isWhite ? -1 : 1);
+                }
+                
+                if (targetBlock != null) {
+                    SnipeEffect snipe = new SnipeEffect(getX(), getY(), 
+                        targetBlock.getX(), targetBlock.getY());
+                    gw.addObject(snipe, getX(), getY());
+                }
+                
                 snipe();
-                endTurn = true;
+                endTurn();
                 break;
+                
             case ROYAL_GIANT:
                 abilityState = 1;
+                updateHitbox();
+                clearHighlights();
+                showPossibleMoves();
                 break;
-        }
-        
-        // refresh the possible moves and update hitbox
-        if (!endTurn) {
-            updateHitbox();
-            clearHighlights();
-            showPossibleMoves();
-        } 
-        else {
-            endTurn();
+                
+            case ROYAL_RECRUITS:
+                abilityState = 1;
+                updateHitbox();
+                clearHighlights();
+                showPossibleMoves();
+                break;
         }
     }
     
