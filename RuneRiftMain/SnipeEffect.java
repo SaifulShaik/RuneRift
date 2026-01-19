@@ -11,7 +11,7 @@ public class SnipeEffect extends Effect
         this.startY = startY;
         this.endX = endX;
         this.endY = endY;
-        lifetime = 10; // Very quick
+        lifetime = 25; // Very quick
     }
     
     @Override

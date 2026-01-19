@@ -101,7 +101,7 @@ class DescriptionBox extends Actor
         {
             case "DARK_PRINCE":
                 return "Chess: Rook\n" +
-                       "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
+                       "━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
                        "Movement:\n" +
                        "• Moves in straight lines\n" +
                        "Special Ability (5 Elixir):\n" +
@@ -114,11 +114,11 @@ class DescriptionBox extends Actor
                        
             case "KNIGHT":
                 return "Chess: Knight\n" +
-                       "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
+                       "━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
                        "Movement:\n" +
                        "• Moves in L-shape\n" +
                        "• Can jump over other pieces\n\n" +
-                       "Special Ability (5 Elixir):\n" +
+                       "Special Ability (3 Elixir):\n" +
                        "• Close Combat: Eliminate all enemies\n" +
                        "  three tiles in front\n" +
                        "Tips:\n" +
@@ -126,10 +126,10 @@ class DescriptionBox extends Actor
                        
             case "MUSKETEER":
                 return "Chess: Bishop \n" +
-                       "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
+                       "━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
                        "Movement:\n" +
                        "• Moves diagonaly \n" +
-                       "Special Ability (3 Elixir):\n" +
+                       "Special Ability (2 Elixir):\n" +
                        "• Sneaky Snipe: Shoots a bullet down a\n" +
                        "  column, eliminating the first target hit\n" +
                        "• Needs line of sight\n\n" +
@@ -138,11 +138,11 @@ class DescriptionBox extends Actor
                        "pieces!";
                        
             case "WITCH":
-                return "Chess: Queen" +
-                       "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
+                return "Chess: Queen\n" +
+                       "━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
                        "Movement:\n" +
                        "• Moves diagonally and horizontally\n" +
-                       "Special Ability (7 Elixir):\n" +
+                       "Special Ability (6 Elixir):\n" +
                        "• Mother Witch: Spawns 4 skeleton around the\n" +
                        "  Witch in a + pattern that acts like \n" +
                        "  pawns (no skeleton ability) \n" +
@@ -151,8 +151,8 @@ class DescriptionBox extends Actor
                        "skeletons!";
                        
             case "ROYAL_GIANT":
-                return "Chess: King" +
-                       "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
+                return "Chess: King\n" +
+                       "━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
                        "Movement:\n" +
                        "• Moves 1 space in any direction\n" +
                        "Special Ability (8 Elixir):\n" +
@@ -166,8 +166,8 @@ class DescriptionBox extends Actor
                        "your attack!!";
                        
             case "ROYAL_RECRUITS":
-                return "ROYAL RECRUITS\n" +
-                       "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
+                return "Chess: Pawn\n" +
+                       "━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
                        "Movement:\n" +
                        "• Moves like the pawn\n" +
                        "• Moves 1 space forwards,take 2 steps if on starting spot\n" +
@@ -180,8 +180,8 @@ class DescriptionBox extends Actor
                        "by pushing them back!";
                        
             case "SKELETON":
-                return "SKELETON\n" +
-                       "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
+                return "Chess: Pawn\n" +
+                       "━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
                        "Movement:\n" +
                        "• Moves like the pawn\n" +
                        "• Moves 1 space forwards, move 2 space if on starting spot\n" +
