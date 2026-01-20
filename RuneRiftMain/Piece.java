@@ -23,6 +23,8 @@ public class Piece extends Actor
     private boolean abilityUsed;
     private int abilityState;
     private int abilityCost;
+    
+    private boolean waitingForPromotion;  // True if Royal Recruit is at promotion row but canceled promotion
 
     private List<Block> highlightedBlocks = new ArrayList<>();
     
@@ -56,28 +58,24 @@ public class Piece extends Actor
     }
     
     private void moveTo(Block target) {
+        boolean hadPiece = target.currentPiece() != null;
         target.removePiece(true);
         
         if (currentBlock != null) currentBlock.setPiece(null);
         
-        // Use target coordinates instead of getX()/getY()
         if (type == PieceType.ROYAL_RECRUITS && abilityState == 1 && getWorld() != null) {
             SpearStrikeEffect spear = new SpearStrikeEffect(target.getX(), target.getY(), isWhite);
             getWorld().addObject(spear, target.getX(), target.getY());
             abilityState = 0;
         }
         
-        if (type == PieceType.DARK_PRINCE && abilityState == 1 && getWorld ()!= null) {
-            // We spawn it at the TARGET location because that is where we land
-            getWorld().addObject(new ChargeEffect(target.getX(), target.getY()), target.getX(), target.getY());
-        }
-        
         setLocation(target.getX(), target.getY());
         currentBlock = target;
         target.setPiece(this);
         hasMoved = true;
-        
-        if (abilityState == 1 && type == PieceType.DARK_PRINCE) {
+
+        if (type == PieceType.DARK_PRINCE && abilityState == 1 && getWorld ()!= null && hadPiece) {
+            getWorld().addObject(new ChargeEffect(currentBlock.getX(), currentBlock.getY()), currentBlock.getX(), currentBlock.getY());
             dealSplashDamage();
         }
         
@@ -283,6 +281,10 @@ public class Piece extends Actor
         if (!Greenfoot.mouseClicked(null)) return;
         if (!isMyTurn()) return;
         
+        // Don't allow moves while promotion menu is active
+        GridWorld gw = (GridWorld) getWorld();
+        if (gw.isPromotionMenuActive()) return;
+        
         if (type == PieceType.ROYAL_GIANT && abilityState == 1) {
             if (!Greenfoot.mouseClicked(null)) return;
         }
@@ -318,11 +320,19 @@ public class Piece extends Actor
             else if (checkIfMoveIsValid(selectedBlock)) {
                 if (type == PieceType.ROYAL_GIANT && Math.abs(selectedBlock.getBoardY() - currentBlock.getBoardY()) == 2) {
                     executeCastling(selectedBlock);
+                    endTurn();
                 }
                 else {
                     moveTo(selectedBlock);
+                    
+                    // Check for pawn promotion
+                    if (canPromote()) {
+                        gw.showPromotionMenu(this);
+                        // Don't end turn yet - promotion menu will handle it
+                    } else {
+                        endTurn();
+                    }
                 }
-                endTurn();
             }
         }
     }
@@ -533,10 +543,15 @@ public class Piece extends Actor
                 break;
                 
             case ROYAL_RECRUITS:
-                abilityState = 1;
-                updateHitbox();
-                clearHighlights();
-                showPossibleMoves();
+                // If waiting for promotion, reopen the promotion menu
+                if (waitingForPromotion && canPromote()) {
+                    gw.showPromotionMenu(this);
+                } else {
+                    abilityState = 1;
+                    updateHitbox();
+                    clearHighlights();
+                    showPossibleMoves();
+                }
                 break;
         }
     }
@@ -562,6 +577,26 @@ public class Piece extends Actor
         return isWhite;
     }
     
+    /**
+     * Get the current block this piece is on
+     */
+    public Block getCurrentBlock() {
+        return currentBlock;
+    }
+    
+    /**
+     * Check if this Royal Recruit has reached the promotion row
+     * White pieces promote at row 0, Black pieces promote at row 7
+     */
+    private boolean canPromote() {
+        if (type != PieceType.ROYAL_RECRUITS) return false;
+        if (currentBlock == null) return false;
+        
+        int row = currentBlock.getBoardX();
+        // White promotes at row 0 (top), Black promotes at row 7 (bottom)
+        return (isWhite && row == 0) || (!isWhite && row == 7);
+    }
+    
     public void act()
     {
         GridWorld gw = (GridWorld) getWorld();
@@ -577,5 +612,19 @@ public class Piece extends Actor
     public int getAbilityCost()
     {
         return abilityCost;
+    }
+    
+    /**
+     * Set whether this piece is waiting for promotion
+     */
+    public void setWaitingForPromotion(boolean waiting) {
+        this.waitingForPromotion = waiting;
+    }
+    
+    /**
+     * Check if this piece is waiting for promotion
+     */
+    public boolean isWaitingForPromotion() {
+        return waitingForPromotion;
     }
 }

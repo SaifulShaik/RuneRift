@@ -39,6 +39,7 @@ public class GridWorld extends World
 
     private Block[][] blockGrid;
     private Piece selectedPiece;
+    private boolean promotionMenuActive;
     
     /**
      * Constructor for objects of class MyWorld.
@@ -338,6 +339,49 @@ public class GridWorld extends World
     public int getTimeLimitSeconds()
     {
         return timeLimitSeconds;
+    }
+    
+    /**
+     * Get the list of white pieces
+     */
+    public List<Piece> getWhitePieces()
+    {
+        return whitePieces;
+    }
+    
+    /**
+     * Get the list of black pieces
+     */
+    public List<Piece> getBlackPieces()
+    {
+        return blackPieces;
+    }
+    
+    /**
+     * Check if a promotion menu is currently active
+     */
+    public boolean isPromotionMenuActive()
+    {
+        return promotionMenuActive;
+    }
+    
+    /**
+     * Set whether a promotion menu is active
+     */
+    public void setPromotionMenuActive(boolean active)
+    {
+        this.promotionMenuActive = active;
+    }
+    
+    /**
+     * Show the promotion menu for a piece that reached the end
+     */
+    public void showPromotionMenu(Piece piece)
+    {
+        promotionMenuActive = true;
+        int elixir = getElixir(piece.checkIsWhite());
+        PromotionMenu menu = new PromotionMenu(piece, elixir);
+        addObject(menu, 300, 300);
     }
 }
 
