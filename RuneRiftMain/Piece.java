@@ -469,7 +469,7 @@ public class Piece extends Actor
         
         switch (type) {
             case KNIGHT:
-                KnightSlashEffect slash = new KnightSlashEffect(getX(), getY());
+                KnightSlashEffect slash = new KnightSlashEffect(getX(), getY(),isWhite);
                 gw.addObject(slash, getX(), getY());
                 
                 Block block1 = gw.getBlock(x+direction, y-1);
