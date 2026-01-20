@@ -21,8 +21,15 @@ public class SoundManager
     public static final String MUSIC_MENU1 = "menu_music1.mp3";
     public static final String MUSIC_MENU2 = "menu_music2.mp3";
     public static final String MUSIC_MENU3 = "menu_music3.mp3";
+    public static final String DARK_PRINCE = "darkPrince.mp3";
+    public static final String KNIGHT = "knight.mp3";
+    public static final String MUSKETEER = "musketeer.mp3";
+    public static final String ROYAL_RECRUIT = "royalRecruit.mp3";
+    public static final String WITCH = "witch.mp3";
+    public static final String BOMB = "bomb.mp3";
     
-    // Array of menu music files for random selection
+    
+    // Array of menu music files for random selectio
     private static final String[] MENU_MUSIC_FILES = {MUSIC_MENU1, MUSIC_MENU2, MUSIC_MENU3};
     
     // Volume control
@@ -111,22 +118,6 @@ public class SoundManager
     public void playSelect()
     {
         play(SELECT);
-    }
-    
-    /**
-     * Play the win sound
-     */
-    public void playWin()
-    {
-        play(WIN);
-    }
-    
-    /**
-     * Play the lose sound
-     */
-    public void playLose()
-    {
-        play(LOSE);
     }
     
     /**
