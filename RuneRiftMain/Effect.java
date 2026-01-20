@@ -9,9 +9,12 @@ public abstract class Effect extends Actor
 {
     protected int lifetime = 30; // How many frames the effect lasts
     protected int frameCount = 0;
-    
-    //updates the framecount for the effect
-    //checks whether or not the effect should be removed based on frameCount compared with lifetime
+
+    /**
+     * updates the framecount for the effect
+     * checks whether or not the effect should be removed 
+     * based on frameCount compared with lifetime
+     */
     public void act()
     {
         frameCount++;

@@ -15,7 +15,7 @@ public class TurnManager
     private String currentPlayer;
     private ElixirBar whiteElixirBar;
     private ElixirBar blackElixirBar;
-    private int elixirMultiplier;  // How much elixir to gain per turn (1, 2, or 3)
+    private int elixirMultiplier;  // How much elixir to gain per turn 
     
 
     public TurnManager(ElixirBar whiteBar, ElixirBar blackBar)
