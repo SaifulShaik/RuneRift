@@ -1,6 +1,7 @@
-import greenfoot.*;
+import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
+ * Purple particles surround the witch when it summons skeletons
  * 
  * @author Owen
  */
@@ -8,6 +9,13 @@ import greenfoot.*;
 public class SummonEffect extends Effect
 {
     private int centerX, centerY;
+    
+    /**
+     * Create the spear effect
+     * 
+     * @param x the x position of the animation
+     * @param y the y position of the animation
+     */
     
     public SummonEffect(int x, int y)
     {

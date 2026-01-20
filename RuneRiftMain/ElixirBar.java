@@ -1,4 +1,4 @@
-import greenfoot.*;
+import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * Elixir bar used in the game to track how much elixir each player has
@@ -22,6 +22,8 @@ public class ElixirBar extends Actor
     
     /**
      * Set the current elixir amount (0-10)
+     * 
+     * @param amount the amount of elixir the bar will have
      */
     public void setElixir(int amount)
     {
@@ -31,6 +33,8 @@ public class ElixirBar extends Actor
     
     /**
      * Add elixir to the bar
+     * 
+     * @param amount the amount of elixir added to the bar, total must be < 10
      */
     public void addElixir(int amount)
     {
@@ -39,6 +43,8 @@ public class ElixirBar extends Actor
     
     /**
      * Remove elixir from the bar
+     * 
+     * @param amount the amount of elixir removed from the bar
      */
     public void removeElixir(int amount)
     {
@@ -47,6 +53,8 @@ public class ElixirBar extends Actor
     
     /**
      * Get the current elixir amount
+     * 
+     * @return int amount of elixir
      */
     public int getElixir()
     {
@@ -55,6 +63,8 @@ public class ElixirBar extends Actor
     
     /**
      * Check if bar is full
+     * 
+     * @return boolean True if the bar is at max elixir
      */
     public boolean isFull()
     {
@@ -63,12 +73,15 @@ public class ElixirBar extends Actor
     
     /**
      * Check if bar is empty
+     * 
+     * @return boolean True if the bar has 0 elixir
      */
     public boolean isEmpty()
     {
         return currentElixir <= 0;
     }
     
+    //create the bar and fill it up based on elixir amount
     private void updateImage()
     {
         // Add space for the icon on the left

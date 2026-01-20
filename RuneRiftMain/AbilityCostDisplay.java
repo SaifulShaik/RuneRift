@@ -1,4 +1,4 @@
-import greenfoot.*;
+import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * Shows the ability cost of a piece after it has been selected

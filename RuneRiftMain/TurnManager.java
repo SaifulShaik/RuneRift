@@ -1,4 +1,4 @@
-import greenfoot.*;
+import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -17,11 +17,18 @@ public class TurnManager
     private ElixirBar blackElixirBar;
     private int elixirMultiplier;  // How much elixir to gain per turn (1, 2, or 3)
     
+
     public TurnManager(ElixirBar whiteBar, ElixirBar blackBar)
     {
         this(whiteBar, blackBar, 1); // Default to 1x multiplier
     }
     
+    /**
+     * Creates a TurnManager with a default elixir multiplier of 1.
+     *
+     * @param whiteBar Elixir bar for the White player
+     * @param blackBar Elixir bar for the Black player
+     */
     public TurnManager(ElixirBar whiteBar, ElixirBar blackBar, int multiplier)
     {
         turnQueue = new LinkedList<String>();
@@ -40,6 +47,8 @@ public class TurnManager
     
     /**
      * Get whose turn it is
+     * 
+     * @return String the current player
      */
     public String getCurrentPlayer()
     {
@@ -48,6 +57,10 @@ public class TurnManager
     
     /**
      * Check if it's a specific player's turn
+     * 
+     * @param player name of the player to check
+     * 
+     * @return boolean true if the player we checked is the current player, false otherwise
      */
     public boolean isPlayerTurn(String player)
     {
@@ -56,6 +69,8 @@ public class TurnManager
     
     /**
      * Get the current elixir multiplier
+     * 
+     * @return int current elixir multipler
      */
     public int getElixirMultiplier()
     {
@@ -84,7 +99,7 @@ public class TurnManager
             }
         }
         
-        // Now switch to the next player
+        // Switch to the next player
         String player = turnQueue.poll(); // Remove from front
         turnQueue.add(player); // Add to back
         currentPlayer = turnQueue.peek(); // Get new current player

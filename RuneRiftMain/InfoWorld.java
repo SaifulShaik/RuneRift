@@ -1,4 +1,4 @@
-import greenfoot.*;
+import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * World that provides information on all the pieces as well as their abilities

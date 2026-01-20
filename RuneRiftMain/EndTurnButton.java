@@ -1,4 +1,4 @@
-import greenfoot.*;
+import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * Allows user to instantly end a turn, used for development purposes
@@ -14,16 +14,20 @@ public class EndTurnButton extends Actor
         createImage();
     }
     
+    /**
+     * Checks for button being clicked
+     */
     public void act()
     {
         if (Greenfoot.mouseClicked(this))
         {
-            // Call endTurn on the world
+            // Call end turn on the world
             GridWorld world = (GridWorld)getWorld();
             world.endTurn();
         }
     }
     
+    //creates the button
     private void createImage()
     {
         GreenfootImage img = new GreenfootImage(150, 50);

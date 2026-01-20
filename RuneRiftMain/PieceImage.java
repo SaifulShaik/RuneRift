@@ -1,4 +1,4 @@
-import greenfoot.*;
+import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * Used in the InfoWorld to establish the appearance of each piece
@@ -13,6 +13,12 @@ class PieceImage extends Actor
     private String pieceName;
     private String imagePath;
     
+    /**
+     * Creates PieceImage that has a name and image
+     * 
+     * @param pieceName the name of the piece
+     * @param imagePath the path of the image that is to be added onto pieceImage
+     */
     public PieceImage(String pieceName, String imagePath)
     {
         this.pieceName = pieceName;
@@ -20,6 +26,9 @@ class PieceImage extends Actor
         loadImage();
     }
     
+    /**
+     * Preforms set of actions when it notices it has been clicked
+     */
     public void act()
     {
         if (Greenfoot.mouseClicked(this))
@@ -30,6 +39,7 @@ class PieceImage extends Actor
         }
     }
     
+    //Create the display for the image
     private void loadImage()
     {
         GreenfootImage img = new GreenfootImage(imagePath);

@@ -211,7 +211,7 @@ public class GridWorld extends World
     
     /**
      * get the turn manager
-     * @return the TurnManager instance
+     * @return TurnManager the TurnManager instance
      */
     public TurnManager getTurnManager()
     {
@@ -313,6 +313,8 @@ public class GridWorld extends World
     
     /**
      * Get the current en passant target block.
+     * 
+     * @return Block the block that is the target of en passant
      */
     public Block getEnPassantTarget() {
         return enPassantTarget;
@@ -320,6 +322,8 @@ public class GridWorld extends World
     
     /**
      * Get the pawn that is vulnerable to en passant capture.
+     * 
+     * @return Piece the pawn that is vulnerable to en passant
      */
     public Piece getEnPassantVulnerablePawn() {
         return enPassantVulnerablePawn;
@@ -344,7 +348,7 @@ public class GridWorld extends World
      * convert world coordinates to the corresponding Block position.
      * @param worldX the x-coordinate in the world.
      * @param worldY the y-coordinate in the world.
-     * @return the block at the given world coordinates, or null if out of bounds.
+     * @return Block the block at the given world coordinates, or null if out of bounds.
      */
     public Block worldToBlockPos(int worldX, int worldY) {
         if (worldX > 540 || worldX < 60 || worldY > 540 || worldY < 60) return null;
@@ -384,7 +388,7 @@ public class GridWorld extends World
      * Get the block at the specified grid coordinates.
      * @param x the row index.
      * @param y the column index.
-     * @return the Block at the specified coordinates, or null if out of bounds.
+     * @return Block the Block at the specified coordinates, or null if out of bounds.
      */
     public Block getBlock(int x, int y) {
         if (x >= CELLS_TALL || y >= CELLS_WIDE || x < 0 || y < 0) return null;
@@ -393,7 +397,7 @@ public class GridWorld extends World
     
     /**
      * get the currently selected piece
-     * @return the selected Piece, or null if none is selected.
+     * @return Piece the selected Piece, or null if none is selected.
      */
     public Piece getSelectedPiece() {
         return selectedPiece;
@@ -402,7 +406,7 @@ public class GridWorld extends World
     /**
      * check if the ability button for the specified player was clicked
      * @param isWhite true for white player, false for black player
-     * @return true if the button was clicked, false otherwise
+     * @return boolean true if the button was clicked, false otherwise
      */
     public boolean isButtonClicked(boolean isWhite) {
         return isWhite ? whiteAbilityButton.wasClicked() : blackAbilityButton.wasClicked();
@@ -411,7 +415,7 @@ public class GridWorld extends World
     /**
      * get the current elixir amount for the specified player
      * @param isWhite true for white player, false for black player
-     * @return the current elixir amount
+     * @return int the current elixir amount
      */
     public int getElixir(boolean isWhite) {
         return isWhite ? elixirBarWhite.getElixir() : elixirBarBlack.getElixir();
@@ -463,7 +467,7 @@ public class GridWorld extends World
     
     /**
      * get the current elixir multiplier setting
-     * @return the elixir multiplier
+     * @return int the elixir multiplier
      */
     public int getElixirMultiplier()
     {
@@ -472,7 +476,7 @@ public class GridWorld extends World
     
     /**
      * get the time limit in seconds
-     * @return the time limit in seconds
+     * @return int the time limit in seconds
      */
     public int getTimeLimitSeconds()
     {
@@ -481,7 +485,7 @@ public class GridWorld extends World
     
     /**
      * Get the list of white pieces
-     * @return the list of white pieces
+     * @return List<piece> the list of white pieces
      */
     public List<Piece> getWhitePieces()
     {

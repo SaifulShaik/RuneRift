@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class e here.
+ * Spear effect appears when the pawn uses its abiltiy to take the piece in front of it
  * 
  * @author Owen
  */
@@ -11,6 +11,14 @@ public class SpearStrikeEffect extends Effect
     private boolean isWhite;
     private int startX, startY;
     private int targetX, targetY;
+    
+    /**
+     * Create the spear effect
+     * 
+     * @param startX initial x position
+     * @param startY initial y position
+     * @param isWhite determines which way the spear should face
+     */
     
     public SpearStrikeEffect(int startX, int startY, boolean isWhite)
     {
@@ -31,17 +39,17 @@ public class SpearStrikeEffect extends Effect
     {
         GreenfootImage img = new GreenfootImage(10, 40);
         
-        // Spear shaft (brown)
+        // Spear shaft
         img.setColor(new Color(139, 69, 19));
         img.fillRect(3, 5, 4, 30);
         
-        // Spear tip (silver/gray)
+        // Spear tip 
         img.setColor(new Color(192, 192, 192));
         int[] xPoints = {5, 0, 10};
         int[] yPoints = {5, 0, 0};
         img.fillPolygon(xPoints, yPoints, 3);
         
-        // Rotate if moving down (black pieces)
+        // Rotate if moving down
         if (!isWhite)
         {
             img.rotate(180);

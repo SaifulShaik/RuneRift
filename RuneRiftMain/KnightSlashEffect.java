@@ -1,4 +1,4 @@
-import greenfoot.*;
+import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * The slash effect that appears when the knight uses its ability
@@ -13,7 +13,7 @@ public class KnightSlashEffect extends Effect
     private boolean isWhite;
     
     /**
-     * Creates the slash effect based on 
+     * Creates the slash effect based on the x and y coordinates as well as whether or not it is a white piece
      * 
      * @param x the x coordinate of the effect
      * @param y the y coordinate of the effect

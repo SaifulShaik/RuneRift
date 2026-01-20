@@ -1,4 +1,4 @@
-import greenfoot.*;
+import greenfoot.*; // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * Timer that counts down to establish a time limit for the game
@@ -6,16 +6,21 @@ import greenfoot.*;
  * When a player plays a move, their turn ends and the next players automatically starts
  * 
  * @author Owen Lee
- * @version
  */
 
 public class GameTimer extends Actor
 {
     private int timeLeft;
     private int frameCount = 0;
-    private String player; // "WHITE" or "BLACK"
+    private String player; // white or black
     private boolean isActive = false;
     
+    /**
+     * Creates the timer
+     * 
+     * @param player white or black player
+     * @param startingTime amount of time each player has in the game
+     */
     public GameTimer(String player, int startingTime)
     {
         this.player = player;
@@ -23,14 +28,16 @@ public class GameTimer extends Actor
         updateDisplay();
     }
     
+    /**
+     * Counts down the timer based on frames that passed
+     */
     public void act()
     {
         if (!isActive)
         {
-            return; // Don't count down if not active
+            return; // Don't count down if clock not active, this means its the other players turn
         }
         
-        // Count frames (Greenfoot runs at ~60 fps)
         frameCount++;
         
         // Every 60 frames = 1 second
@@ -53,7 +60,9 @@ public class GameTimer extends Actor
     }
     
     /**
-     * Set whether this timer is active (counting down)
+     * Set whether this timer is active (start count down)
+     * 
+     * @param active true if the timer should count down, false when it should be paused
      */
     public void setActive(boolean active)
     {
@@ -63,6 +72,10 @@ public class GameTimer extends Actor
     
     /**
      * Check if this timer is for a specific player
+     * 
+     * @param playerName the player name checked (white or black)
+     * 
+     * @return boolean true if the timer belongs to the specified player, false otherwise
      */
     public boolean isPlayer(String playerName)
     {
