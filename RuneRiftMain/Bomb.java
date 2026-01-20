@@ -11,20 +11,31 @@ public class Bomb extends Actor
     private Block location;
     private int turnCount;
     private boolean isWhite;
+    private Label turnsLabel;
     
     public Bomb(Block location, boolean isWhite) {
         this.location = location;
         this.isWhite = isWhite;
         this.turnCount = 4;
+        
+        turnsLabel = new Label(turnCount, 36);
+    }
+    
+    protected void addedToWorld(World world)
+    {
+        world.addObject(turnsLabel, getX(), getY());
     }
     
     public void act()
     {
+        turnsLabel.setLocation(getX(), getY());
+
         if (turnCount == 0) explode();
     }
     
     public void progressExplosion() {
         turnCount--;
+        turnsLabel.setValue(turnCount);
     }
     
     private void explode() {
@@ -44,6 +55,7 @@ public class Bomb extends Actor
             }
         }
         
+        gw.removeObject(turnsLabel);
         gw.removeObject(this);
     }
 }

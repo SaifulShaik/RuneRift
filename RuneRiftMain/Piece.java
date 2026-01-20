@@ -185,9 +185,13 @@ public class Piece extends Actor
                 return isPathClear(x, y, targetX, targetY);
     
             case SKELETON:
-                if (dy != 0) return false;
-                if (dx != direction) return false;
-                return true;
+                if (Math.abs(dy) == Math.abs(dx) && pieceOnTarget != null) {
+                    if (pieceOnTarget.checkIsWhite() != this.isWhite) {
+                        return true;
+                    }
+                }
+                if (dy == 0 && dx == direction && pieceOnTarget == null) return true;
+                return false;
     
             case ROYAL_GIANT:
                 if (abilityState == 1) return false; 
@@ -355,7 +359,7 @@ public class Piece extends Actor
     private void endTurn() {
         ((GridWorld) getWorld()).endTurn();
         abilityUsed = false;
-        isSelected = false;
+        deselect();
     }
     
     private void showPossibleMoves() {
