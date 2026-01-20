@@ -22,7 +22,7 @@ public class GridWorld extends World
     private TurnManager turnManager;
     private GameTimer whiteTimer;
     private GameTimer blackTimer;
-    private EndTurnButton endTurnButton;
+    //private EndTurnButton endTurnButton;
     private Button blackAbilityButton;
     private Button whiteAbilityButton;
     
@@ -157,6 +157,10 @@ public class GridWorld extends World
     public void endTurn(){
         turnManager.nextTurn();
         progressBombExplosions();
+        
+        // Hide ability cost displays when turn ends
+        whiteCostDisplay.hide();
+        blackCostDisplay.hide();
         
         // Switch which timer is active based on current player
         String currentPlayer = turnManager.getCurrentPlayer();
