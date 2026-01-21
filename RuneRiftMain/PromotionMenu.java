@@ -210,7 +210,6 @@ public class PromotionMenu extends Actor
         // closem enu and end turn
         closeMenu();
         newPiece.endTurn();
-        gw.endTurn();
     }
     
     /**
