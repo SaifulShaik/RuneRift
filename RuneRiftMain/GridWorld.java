@@ -26,7 +26,7 @@ import java.util.ArrayList;
  * Save/Load Features
  *  Player preferences are automatically saved in a text file called game_settings.txt and is loaded up each time the game is opened
  *  
- * Greenfoot Gallery
+ * Greenfoot Gallery Link
  * 
  * Credits
  * 
@@ -43,11 +43,10 @@ import java.util.ArrayList;
  *      - Bomb - u_xg7ssi08yr
  *      - Bullet - free_sound community
  *      - Spear - yodguard
- *      - Click
- *      - Draw
+ *      - Click - MatthewVakaliuk73627
  * Witch summoning sound - https://www.tiktok.com/@jycedean/video/7577135163000245559
  * Bomb Planted Sound By Impostor - https://www.youtube.com/watch?v=llCmtgvIqcY
- * Clash royal loading and menu music - clashroyale.fandom.com
+ * Loading. menu, and game end music - clashroyale.fandom.com
  *
  * No Known Bugs
  * 
