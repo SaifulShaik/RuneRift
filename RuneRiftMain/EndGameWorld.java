@@ -109,27 +109,25 @@ public class EndGameWorld extends MenuWorld
     private void setupFixedUI()
     {
         // Title - GAME OVER
-        Label titleLabel = new Label("GAME OVER", 48);
+        Label titleLabel = new Label("GAME OVER", 56);
         titleLabel.setFillColor(new Color(255, 215, 0));
-        titleLabel.setLineColor(new Color(180, 140, 0));
-        addObject(titleLabel, 300, 45);
+        addObject(titleLabel, 300, 50);
         
         // Winner announcement
         String winnerText = winner.equals("DRAW") ? "IT'S A DRAW!" : winner + " WINS!";
         Color winnerColor = winner.equals("DRAW") ? new Color(255, 255, 255) : 
                           (winner.equals("WHITE") ? new Color(255, 255, 255) : new Color(200, 150, 255));
-        Label winnerLabel = new Label(winnerText, 32);
+        Label winnerLabel = new Label(winnerText, 38);
         winnerLabel.setFillColor(winnerColor);
-        winnerLabel.setLineColor(new Color(100, 80, 150));
-        addObject(winnerLabel, 300, 90);
+        addObject(winnerLabel, 300, 100);
         
         // End reason
-        Label reasonLabel = new Label(endReason, 18);
+        Label reasonLabel = new Label(endReason, 22);
         reasonLabel.setFillColor(new Color(220, 220, 220));
-        addObject(reasonLabel, 300, 120);
+        addObject(reasonLabel, 300, 135);
         
         // Scroll hint
-        Label scrollHint = new Label("↓ Scroll to see more ↓", 14);
+        Label scrollHint = new Label("↓ Scroll to see more ↓", 20);
         scrollHint.setFillColor(new Color(200, 200, 200));
         addObject(scrollHint, 300, VIEWPORT_BOTTOM + 15);
         
@@ -145,23 +143,24 @@ public class EndGameWorld extends MenuWorld
     
     private void setupScrollableContent()
     {
+        int centerX = 295; // Center of viewport (25 + 540/2)
         int currentY = VIEWPORT_TOP + 30;
-        int spacing = 35;
+        int spacing = 40;
         
         // Game stats section
-        Label statsTitle = new Label("═══ GAME STATISTICS ═══", 20);
+        Label statsTitle = new Label("═══ GAME STATISTICS ═══", 24);
         statsTitle.setFillColor(new Color(255, 215, 0));
-        addScrollableActor(statsTitle, 300, currentY);
+        addScrollableActor(statsTitle, centerX, currentY);
         currentY += spacing;
         
-        Label timeLabel = new Label("Game Duration: " + formatTime(totalGameTime), 18);
+        Label timeLabel = new Label("Game Duration: " + formatTime(totalGameTime), 22);
         timeLabel.setFillColor(Color.WHITE);
-        addScrollableActor(timeLabel, 300, currentY);
+        addScrollableActor(timeLabel, centerX, currentY);
         currentY += spacing - 5;
         
-        Label turnLabel = new Label("Total Turns: " + turnCount, 18);
+        Label turnLabel = new Label("Total Turns: " + turnCount, 22);
         turnLabel.setFillColor(Color.WHITE);
-        addScrollableActor(turnLabel, 300, currentY);
+        addScrollableActor(turnLabel, centerX, currentY);
         currentY += spacing + 15;
         
         // Player stats based on game outcome
@@ -182,50 +181,50 @@ public class EndGameWorld extends MenuWorld
     
     private int setupDrawStats(int startY)
     {
+        int centerX = 295;
         int currentY = startY;
-        int spacing = 30;
+        int spacing = 35;
         
         // WHITE player stats
-        Label whiteSectionTitle = new Label("═══ WHITE ═══", 22);
+        Label whiteSectionTitle = new Label("═══ WHITE ═══", 26);
         whiteSectionTitle.setFillColor(new Color(240, 240, 240));
-        addScrollableActor(whiteSectionTitle, 300, currentY);
+        addScrollableActor(whiteSectionTitle, centerX, currentY);
         currentY += spacing;
         
-        Label whiteTime = new Label("Time Remaining: " + formatTime(whiteTimeRemaining), 18);
+        Label whiteTime = new Label("Time Remaining: " + formatTime(whiteTimeRemaining), 22);
         whiteTime.setFillColor(Color.WHITE);
-        addScrollableActor(whiteTime, 300, currentY);
+        addScrollableActor(whiteTime, centerX, currentY);
         currentY += spacing - 5;
         
-        Label whiteCaptured = new Label("Pieces Captured: " + whiteCapturedPieces.size(), 18);
+        Label whiteCaptured = new Label("Pieces Captured: " + whiteCapturedPieces.size(), 22);
         whiteCaptured.setFillColor(Color.WHITE);
-        addScrollableActor(whiteCaptured, 300, currentY);
+        addScrollableActor(whiteCaptured, centerX, currentY);
         currentY += spacing;
         
-        whiteViewCapturedButton = new Button("View White's Captures", 200, 40,
-            new Color(70, 100, 150), new Color(90, 120, 170), Color.WHITE, 16);
-        addScrollableActor(whiteViewCapturedButton, 300, currentY);
-        currentY += spacing + 25;
+        whiteViewCapturedButton = new Button("View White's Captures", 220, 45,
+            new Color(70, 100, 150), new Color(90, 120, 170), Color.WHITE, 18);
+        addScrollableActor(whiteViewCapturedButton, centerX, currentY);
+        currentY += spacing + 30;
         
         // BLACK player stats
-        Label blackSectionTitle = new Label("═══ BLACK ═══", 22);
+        Label blackSectionTitle = new Label("═══ BLACK ═══", 26);
         blackSectionTitle.setFillColor(new Color(200, 150, 255));
-        blackSectionTitle.setLineColor(new Color(120, 80, 180));
-        addScrollableActor(blackSectionTitle, 300, currentY);
+        addScrollableActor(blackSectionTitle, centerX, currentY);
         currentY += spacing;
         
-        Label blackTime = new Label("Time Remaining: " + formatTime(blackTimeRemaining), 18);
+        Label blackTime = new Label("Time Remaining: " + formatTime(blackTimeRemaining), 22);
         blackTime.setFillColor(new Color(255, 255, 255));
-        addScrollableActor(blackTime, 300, currentY);
+        addScrollableActor(blackTime, centerX, currentY);
         currentY += spacing - 5;
         
-        Label blackCaptured = new Label("Pieces Captured: " + blackCapturedPieces.size(), 18);
+        Label blackCaptured = new Label("Pieces Captured: " + blackCapturedPieces.size(), 22);
         blackCaptured.setFillColor(new Color(255, 255, 255));
-        addScrollableActor(blackCaptured, 300, currentY);
+        addScrollableActor(blackCaptured, centerX, currentY);
         currentY += spacing;
         
-        blackViewCapturedButton = new Button("View Black's Captures", 200, 40,
-            new Color(60, 80, 120), new Color(80, 100, 140), Color.WHITE, 16);
-        addScrollableActor(blackViewCapturedButton, 300, currentY);
+        blackViewCapturedButton = new Button("View Black's Captures", 220, 45,
+            new Color(60, 80, 120), new Color(80, 100, 140), Color.WHITE, 18);
+        addScrollableActor(blackViewCapturedButton, centerX, currentY);
         currentY += spacing + 20;
         
         return currentY;
@@ -233,8 +232,9 @@ public class EndGameWorld extends MenuWorld
     
     private int setupWinnerLoserStats(int startY)
     {
+        int centerX = 295;
         int currentY = startY;
-        int spacing = 30;
+        int spacing = 35;
         
         String loser = winner.equals("WHITE") ? "BLACK" : "WHITE";
         int winnerTime = winner.equals("WHITE") ? whiteTimeRemaining : blackTimeRemaining;
@@ -243,52 +243,51 @@ public class EndGameWorld extends MenuWorld
         List<Piece.PieceType> loserCaptures = winner.equals("WHITE") ? blackCapturedPieces : whiteCapturedPieces;
         
         // Winner section
-        Label crownLabel = new Label("★ WINNER ★", 24);
+        Label crownLabel = new Label("★ WINNER ★", 28);
         crownLabel.setFillColor(new Color(255, 215, 0));
-        addScrollableActor(crownLabel, 300, currentY);
+        addScrollableActor(crownLabel, centerX, currentY);
         currentY += spacing;
         
         Color winnerNameColor = winner.equals("WHITE") ? new Color(255, 255, 255) : new Color(200, 150, 255);
-        Label winnerName = new Label("═══ " + winner + " ═══", 26);
+        Label winnerName = new Label("═══ " + winner + " ═══", 30);
         winnerName.setFillColor(winnerNameColor);
-        winnerName.setLineColor(winner.equals("BLACK") ? new Color(120, 80, 180) : new Color(180, 180, 180));
-        addScrollableActor(winnerName, 300, currentY);
+        addScrollableActor(winnerName, centerX, currentY);
         currentY += spacing + 5;
         
-        Label winnerTimeLabel = new Label("Time Remaining: " + formatTime(winnerTime), 18);
+        Label winnerTimeLabel = new Label("Time Remaining: " + formatTime(winnerTime), 22);
         winnerTimeLabel.setFillColor(Color.WHITE);
-        addScrollableActor(winnerTimeLabel, 300, currentY);
+        addScrollableActor(winnerTimeLabel, centerX, currentY);
         currentY += spacing - 5;
         
-        Label winnerCapturedLabel = new Label("Pieces Captured: " + winnerCaptures.size(), 18);
+        Label winnerCapturedLabel = new Label("Pieces Captured: " + winnerCaptures.size(), 22);
         winnerCapturedLabel.setFillColor(Color.WHITE);
-        addScrollableActor(winnerCapturedLabel, 300, currentY);
+        addScrollableActor(winnerCapturedLabel, centerX, currentY);
         currentY += spacing;
         
-        whiteViewCapturedButton = new Button("View " + winner + "'s Captures", 220, 40,
-            new Color(70, 100, 150), new Color(90, 120, 170), Color.WHITE, 16);
-        addScrollableActor(whiteViewCapturedButton, 300, currentY);
+        whiteViewCapturedButton = new Button("View " + winner + "'s Captures", 240, 45,
+            new Color(70, 100, 150), new Color(90, 120, 170), Color.WHITE, 18);
+        addScrollableActor(whiteViewCapturedButton, centerX, currentY);
         currentY += spacing + 30;
         
-        // Loser section (smaller)
-        Label loserTitle = new Label("─── " + loser + " ───", 20);
+        // Loser section
+        Label loserTitle = new Label("─── " + loser + " ───", 24);
         loserTitle.setFillColor(new Color(220, 220, 220));
-        addScrollableActor(loserTitle, 300, currentY);
+        addScrollableActor(loserTitle, centerX, currentY);
         currentY += spacing - 5;
         
-        Label loserTimeLabel = new Label("Time Remaining: " + formatTime(loserTime), 16);
+        Label loserTimeLabel = new Label("Time Remaining: " + formatTime(loserTime), 20);
         loserTimeLabel.setFillColor(new Color(220, 220, 220));
-        addScrollableActor(loserTimeLabel, 300, currentY);
+        addScrollableActor(loserTimeLabel, centerX, currentY);
         currentY += spacing - 8;
         
-        Label loserCapturedLabel = new Label("Pieces Captured: " + loserCaptures.size(), 16);
+        Label loserCapturedLabel = new Label("Pieces Captured: " + loserCaptures.size(), 20);
         loserCapturedLabel.setFillColor(new Color(220, 220, 220));
-        addScrollableActor(loserCapturedLabel, 300, currentY);
+        addScrollableActor(loserCapturedLabel, centerX, currentY);
         currentY += spacing - 5;
         
-        blackViewCapturedButton = new Button("View " + loser + "'s Captures", 200, 35,
-            new Color(60, 80, 120), new Color(80, 100, 140), Color.WHITE, 14);
-        addScrollableActor(blackViewCapturedButton, 300, currentY);
+        blackViewCapturedButton = new Button("View " + loser + "'s Captures", 220, 40,
+            new Color(60, 80, 120), new Color(80, 100, 140), Color.WHITE, 16);
+        addScrollableActor(blackViewCapturedButton, centerX, currentY);
         currentY += spacing + 20;
         
         return currentY;
