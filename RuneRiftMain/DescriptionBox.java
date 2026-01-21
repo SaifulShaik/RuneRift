@@ -158,7 +158,7 @@ class DescriptionBox extends Actor
                        "━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
                        "Movement:\n" +
                        "• Moves diagonally and horizontally\n" +
-                       "Special Ability (6 Elixir):\n" +
+                       "Special Ability (3 Elixir):\n" +
                        "• Mother Witch: Spawns 4 skeleton around the\n" +
                        "  Witch in a + pattern that acts like \n" +
                        "  pawns (no skeleton ability) \n" +

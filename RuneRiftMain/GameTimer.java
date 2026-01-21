@@ -84,7 +84,7 @@ public class GameTimer extends Actor
     
     private void updateDisplay()
     {
-        GreenfootImage img = new GreenfootImage(160, 40);
+        GreenfootImage img = new GreenfootImage(140, 40);
         
         // Background
         img.setColor(new Color(40, 40, 40));

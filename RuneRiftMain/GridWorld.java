@@ -3,8 +3,43 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Main world that uses a 2d array to create the board 
- * using the coding techniques mentioned in class
+ * Welcome to Clashmate, where Clash Royale meets Chess
+ * This game functions as normal chess with elixir that supercharges your troops
+ * 
+ * Instructions
+ *  White and black alternate turns and both have their own timer, if they run out of time, they lose
+ *  (Our game is a 2 player game so we recommend you find friend or family to play with)
+ *  Each player gains elixir each round (amount depends on elixir multiplier chosen in settings)
+ *  Each turn consists of two possible moves
+ *      1. Move piece like in regular chess 
+ *      2. Use ability with your elixir
+ *      (all abilities and further details on pieces can be accessed on the infoWorld, accessed through the landing page)
+ *  Just like in chess, there are promotions, however in Clashmate, it costs elixir depending on the piece you wish to promote to
+ *  
+ * Cheats:
+ *  There are no cheats in our game, however we recommend you use triple elixir feature to quickily try out all our abilties
+ *  There is also a end turn button that can be uncommented from this world for you to quickily end turns and get elixir
+ * 
+ * Grid Use:
+ *  Our main world uses a 2d array to create the grid for the board 
+ *  
+ * Save/Load Features
+ *  Player preferences are automatically saved in a text file called game_settings.txt and is loaded up each time the game is opened
+ *  
+ * Greenfoot Gallery
+ * 
+ * Credits
+ * 
+ * Images
+ * Pieces - Clash Royale
+ * Landing page background - https://make.supercell.com/en/explore/clash-royale 
+ * Elixir Icon - https://www.youtube.com/shorts/6skfbEXceec 
+ * 
+ * Sounds
+ * Pixabay.com clashroyale.fandom.com
+ *
+ * Known Bugs
+ * 
  * 
  * @author Owen, Joe, Saiful
  */
@@ -66,6 +101,9 @@ public class GridWorld extends World
     private int turnCount = 0;
     private long gameStartTime;
     
+    //UNCOMMENT BELOW FOR ENDTURN BUTTON
+    //private EndTurnButton endTurnButton;
+    
     /**
      * Constructor for objects of class MyWorld.
      * Loads settings from GameSettings configuration.
@@ -81,6 +119,7 @@ public class GridWorld extends World
         blockGrid = new Block[CELLS_TALL][CELLS_WIDE];
         layoutGrid();
         
+        //UNCOMMENT BELOW FOR ENDTURN BUTTON
         //endTurnButton = new EndTurnButton();
         //addObject(endTurnButton, 300, 300);
         
@@ -92,9 +131,9 @@ public class GridWorld extends World
         
         // Create separate timers with loaded time limit
         whiteTimer = new GameTimer("WHITE", timeLimitSeconds);
-        addObject(whiteTimer, 330, 575);
+        addObject(whiteTimer, 342, 575);
         blackTimer = new GameTimer("BLACK", timeLimitSeconds);
-        addObject(blackTimer, 330, 25); 
+        addObject(blackTimer, 342, 25); 
         
         // Keep timers inactive until loading is complete
         whiteTimer.setActive(false);
