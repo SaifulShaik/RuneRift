@@ -27,6 +27,7 @@ import java.util.ArrayList;
  *  Player preferences are automatically saved in a text file called game_settings.txt and is loaded up each time the game is opened
  *  
  * Greenfoot Gallery Link
+ * https://www.greenfoot.org/scenarios/36015
  * 
  * Credits
  * 
