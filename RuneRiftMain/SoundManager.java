@@ -165,16 +165,21 @@ public class SoundManager
     {
         try
         {
-            if (menuMusic == null)
+            // Always stop and recreate to avoid corruption issues
+            if (menuMusic != null)
             {
-                menuMusic = new GreenfootSound(MENU_MUSIC);
+                menuMusic.stop();
+                menuMusic = null;
             }
+            
+            menuMusic = new GreenfootSound(MENU_MUSIC);
             menuMusic.setVolume(getEffectiveMusicVolume());
             menuMusic.playLoop();
         }
         catch (Exception e)
         {
-            // Music file not found, fail silently
+            // Music file not found or corrupted, fail silently
+            menuMusic = null;
         }
     }
     
@@ -185,7 +190,16 @@ public class SoundManager
     {
         if (menuMusic != null)
         {
-            menuMusic.stop();
+            try
+            {
+                menuMusic.stop();
+                menuMusic = null; // Clear reference to prevent reuse
+            }
+            catch (Exception e)
+            {
+                // Ignore errors when stopping
+                menuMusic = null;
+            }
         }
     }
     
