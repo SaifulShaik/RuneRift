@@ -2,5 +2,5 @@ elixirMultiplier=2
 timeMinutes=5
 isWhiteSide=true
 masterVolume=67
-musicVolume=36
+musicVolume=100
 sfxVolume=59
