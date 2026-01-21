@@ -31,16 +31,25 @@ import java.util.ArrayList;
  * Credits
  * 
  * Images
- * Pieces - Clash Royale
+ * Pieces - Clash Royale Game
  * Landing page background - https://make.supercell.com/en/explore/clash-royale 
  * Elixir Icon - https://www.youtube.com/shorts/6skfbEXceec 
  * 
  * Sounds
  * Sound Effects - Pixabay.com 
- * Clash royal loading and landing page music - clashroyale.fandom.com
+ *  Includes:
+ *      - Horse Neigh By Dragon Studio
+ *      - Select - CreatorsHome
+ *      - Bomb - u_xg7ssi08yr
+ *      - Bullet - free_sound community
+ *      - Spear - yodguard
+ *      - Click
+ *      - Draw
+ * Witch summoning sound - https://www.tiktok.com/@jycedean/video/7577135163000245559
+ * Bomb Planted Sound By Impostor - https://www.youtube.com/watch?v=llCmtgvIqcY
+ * Clash royal loading and menu music - clashroyale.fandom.com
  *
- * Known Bugs
- * 
+ * No Known Bugs
  * 
  * @author Owen, Joe, Saiful
  */
