@@ -93,7 +93,7 @@ public class GameTimer extends Actor
         // Timer text - GREEN if active, WHITE if not
         img.setColor(isActive ? Color.GREEN : Color.WHITE);
         img.setFont(new Font("Arial", true, false, 20));
-        img.drawString(player + ": " + formatTime(timeLeft), 10, 28);
+        img.drawString(player + ": " + formatTime(timeLeft), 5, 28);
         
         setImage(img);
     }

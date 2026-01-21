@@ -36,7 +36,8 @@ import java.util.ArrayList;
  * Elixir Icon - https://www.youtube.com/shorts/6skfbEXceec 
  * 
  * Sounds
- * Pixabay.com clashroyale.fandom.com
+ * Sound Effects - Pixabay.com 
+ * Clash royal loading and landing page music - clashroyale.fandom.com
  *
  * Known Bugs
  * 
@@ -131,9 +132,9 @@ public class GridWorld extends World
         
         // Create separate timers with loaded time limit
         whiteTimer = new GameTimer("WHITE", timeLimitSeconds);
-        addObject(whiteTimer, 342, 575);
+        addObject(whiteTimer, 345, 575);
         blackTimer = new GameTimer("BLACK", timeLimitSeconds);
-        addObject(blackTimer, 342, 25); 
+        addObject(blackTimer, 345, 25); 
         
         // Keep timers inactive until loading is complete
         whiteTimer.setActive(false);
