@@ -159,12 +159,11 @@ public class CapturedPiecesPopup extends Actor
     }
     
     /**
-     * Act - check for clicks to close
+     * Act - popup closing is now handled by EndGameWorld
      */
     public void act()
     {
-        if (Greenfoot.mouseClicked(this) || Greenfoot.mouseClicked(null)) {
-            parentWorld.closePopup();
-        }
+        // Closing is handled by EndGameWorld to prevent immediate close
+        // on the same click that opened the popup
     }
 }
