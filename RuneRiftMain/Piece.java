@@ -304,6 +304,7 @@ public class Piece extends Actor
                 return isPathClear(x, y, targetX, targetY);
     
             case SKELETON:
+                if (Math.abs(dx) > 1 || Math.abs(dy) > 1) return false;
                 if (Math.abs(dy) == Math.abs(dx) && pieceOnTarget != null) {
                     if (pieceOnTarget.checkIsWhite() != this.isWhite) {
                         return true;
@@ -573,7 +574,7 @@ public class Piece extends Actor
     /**
      * end the turn for this piece's color
      */
-    private void endTurn() {
+    public void endTurn() {
         ((GridWorld) getWorld()).endTurn();
 
         // reset ability flag
