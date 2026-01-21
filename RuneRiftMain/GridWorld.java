@@ -331,7 +331,7 @@ public class GridWorld extends World
      * @param message the message/reason for game end
      */
     private void endGame(String message) {
-        System.out.println("Game Over! " + message);
+        //System.out.println("Game Over! " + message);
         whiteTimer.setActive(false);
         blackTimer.setActive(false);
         
