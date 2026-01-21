@@ -145,7 +145,7 @@ class DescriptionBox extends Actor
                        "━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
                        "Movement:\n" +
                        "• Moves diagonaly \n" +
-                       "Special Ability (2 Elixir):\n" +
+                       "Special Ability (3 Elixir):\n" +
                        "• Sneaky Snipe: Shoots a bullet down a\n" +
                        "  column, eliminating the first target hit\n" +
                        "• Needs line of sight\n\n" +
@@ -158,7 +158,7 @@ class DescriptionBox extends Actor
                        "━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" +
                        "Movement:\n" +
                        "• Moves diagonally and horizontally\n" +
-                       "Special Ability (3 Elixir):\n" +
+                       "Special Ability (4 Elixir):\n" +
                        "• Mother Witch: Spawns 4 skeleton around the\n" +
                        "  Witch in a + pattern that acts like \n" +
                        "  pawns (no skeleton ability) \n" +

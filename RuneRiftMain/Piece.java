@@ -83,9 +83,9 @@ public class Piece extends Actor
         switch(type) {
             case DARK_PRINCE: abilityCost = 5; break;
             case KNIGHT: abilityCost = 3; break;
-            case MUSKETEER: abilityCost = 2; break;
+            case MUSKETEER: abilityCost = 3; break;
             case ROYAL_GIANT: abilityCost = 8; break;
-            case WITCH: abilityCost = 3; break;
+            case WITCH: abilityCost = 4; break;
             case ROYAL_RECRUITS: abilityCost = 1; break;
             case SKELETON: abilityCost = 0; break;
             default: abilityCost = 0; break;
