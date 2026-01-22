@@ -214,6 +214,16 @@ public class EditorWorld extends MenuWorld
     public void act()
     {
         handleButtonClicks();
+        // Shortcut: Press 'E' to open EndGameWorld for testing
+        if (Greenfoot.isKeyDown("e")) {
+            // Dummy data for quick access
+            java.util.List<Piece.PieceType> dummyWhite = new java.util.ArrayList<>();
+            java.util.List<Piece.PieceType> dummyBlack = new java.util.ArrayList<>();
+            for (int i = 0; i < 3; i++) dummyWhite.add(Piece.PieceType.ROYAL_RECRUITS);
+            for (int i = 0; i < 2; i++) dummyBlack.add(Piece.PieceType.KNIGHT);
+            Greenfoot.setWorld(new EndGameWorld(
+                "WHITE", "Tested via shortcut", 120, 90, 600, 42, dummyWhite, dummyBlack));
+        }
     }
     
     /**

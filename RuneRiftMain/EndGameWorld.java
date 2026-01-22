@@ -34,6 +34,7 @@ public class EndGameWorld extends MenuWorld
     private static final int VIEWPORT_TOP = 160;
     private static final int VIEWPORT_BOTTOM = 480;
     private static final int VIEWPORT_HEIGHT = VIEWPORT_BOTTOM - VIEWPORT_TOP;
+
     
     // Scrollbar
     private int scrollbarX = 575;
@@ -134,23 +135,26 @@ public class EndGameWorld extends MenuWorld
         // Navigation buttons at bottom
         playAgainButton = new Button("PLAY AGAIN", 160, 45, 
             new Color(50, 150, 50), new Color(70, 180, 70), Color.WHITE, 20);
-        addObject(playAgainButton, 180, 555);
+        addObject(playAgainButton, 150, 555); // Move left for symmetry
         
         mainMenuButton = new Button("MAIN MENU", 160, 45,
             new Color(150, 50, 50), new Color(180, 70, 70), Color.WHITE, 20);
-        addObject(mainMenuButton, 420, 555);
+        addObject(mainMenuButton, 450, 555); // Move right for symmetry
     }
     
     private void setupScrollableContent()
     {
         int centerX = 295;
-        int currentY = VIEWPORT_TOP + 30;
-        int spacing = 40;
+        // Center content vertically if it fits, otherwise start at top + margin
+        int contentEstimate = 8 * 38; // Estimate 8 lines of 38px each
+        int boxCenterY = VIEWPORT_TOP + VIEWPORT_HEIGHT / 2;
+        int currentY = Math.max(VIEWPORT_TOP + 30, boxCenterY - contentEstimate / 2);
+        int spacing = 38;
         
         // Game stats section
         Label statsTitle = new Label("═══ GAME STATISTICS ═══", 24);
         statsTitle.setFillColor(new Color(255, 215, 0));
-        addScrollableActor(statsTitle, centerX, currentY);
+        addScrollableActor(statsTitle, centerX+25, currentY);
         currentY += spacing;
         
         Label timeLabel = new Label("Game Duration: " + formatTime(totalGameTime), 22);
@@ -183,7 +187,7 @@ public class EndGameWorld extends MenuWorld
     {
         int centerX = 295;
         int currentY = startY;
-        int spacing = 35;
+        int spacing = 36;
         
         // WHITE player stats
         Label whiteSectionTitle = new Label("═══ WHITE ═══", 26);
@@ -232,9 +236,9 @@ public class EndGameWorld extends MenuWorld
     
     private int setupWinnerLoserStats(int startY)
     {
-        int centerX = 295;
+        int centerX = 300;
         int currentY = startY;
-        int spacing = 35;
+        int spacing = 36;
         
         String loser = winner.equals("WHITE") ? "BLACK" : "WHITE";
         int winnerTime = winner.equals("WHITE") ? whiteTimeRemaining : blackTimeRemaining;

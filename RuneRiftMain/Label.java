@@ -87,6 +87,21 @@ public class Label extends Actor
      */
     private void updateImage()
     {
-        setImage(new GreenfootImage(value, fontSize, fillColor, transparent, lineColor));
+        // Only force wide centering for specific titles
+        boolean isWide = value.trim().equals("═══ GAME STATISTICS ═══") ||
+                 value.trim().equals("═══ WHITE ═══") ||
+                 value.trim().equals("═══ BLACK ═══");
+        GreenfootImage temp = new GreenfootImage(value, fontSize, fillColor, transparent, lineColor);
+        int textWidth = temp.getWidth();
+        int textHeight = temp.getHeight();
+        int pad = 20;
+        int imgWidth = isWide ? 540 : textWidth + pad * 2;
+        int imgHeight = textHeight + pad;
+        GreenfootImage centered = new GreenfootImage(imgWidth, imgHeight);
+        centered.setColor(transparent);
+        centered.fill();
+        // Draw the text centered in the wide image
+        centered.drawImage(temp, (imgWidth - textWidth) / 2, (imgHeight - textHeight) / 2);
+        setImage(centered);
     }
 }
